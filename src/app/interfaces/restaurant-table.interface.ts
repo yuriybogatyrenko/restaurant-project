@@ -9,6 +9,13 @@ export interface IRestaurantTable {
     sofa2: number,
     sofa1: number
   };
+  position: {
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    rotate: number
+  };
 }
 
 export interface IRestaurantTableGalleryItem {

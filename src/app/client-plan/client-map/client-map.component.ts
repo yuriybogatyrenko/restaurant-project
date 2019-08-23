@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IRestaurantTable} from '../../interfaces/restaurant-table.interface';
 import Konva from 'konva';
 import {TouchHelperService} from '../../_services/touch-helper/touch-helper.service';
@@ -10,16 +10,20 @@ import {TouchHelperService} from '../../_services/touch-helper/touch-helper.serv
 })
 export class ClientMapComponent implements OnInit {
   @Output() preview = new EventEmitter<IRestaurantTable>();
+  @Input() tables: IRestaurantTable[];
 
   stage: Konva.Stage;
   layer: Konva.Layer;
-  scale = 4;
+  scale = 1;
+  lastDist = 0;
 
   constructor(private elRef: ElementRef,
               private touchS: TouchHelperService) {
   }
 
   ngOnInit() {
+    console.log(this.tables);
+
     const _self = this;
     this.stage = new Konva.Stage({
       draggable: true,
@@ -52,25 +56,27 @@ export class ClientMapComponent implements OnInit {
 
     image.onload = () => {
       const scale = Math.min(this.stage.width() / image.width, this.stage.height() / image.height);
+      console.log((this.stage.width() - image.width * scale) / 2);
+      console.log((this.stage.height() - image.height * scale) / 2);
+      this.stage.width(image.width * scale);
+      this.stage.height(image.height * scale);
+
       const imageLayer = new Konva.Image({
         image,
-        x: 0,
-        y: 0,
+        x: (this.stage.width() - image.width * scale) / 2,
+        y: (this.stage.height() - image.height * scale) / 2,
         width: image.width * scale,
         height: image.height * scale
       });
-
-      this.stage.width(image.width * scale);
-      this.stage.height(image.height * scale);
 
       this.layer.add(imageLayer);
       this.layer.draw();
     };
 
-    let lastDist;
     this.stage.getContent().addEventListener('touchmove', (e: TouchEvent) => {
       const touch1 = e.touches[0];
       const touch2 = e.touches[1];
+      console.log(e.touches);
 
       if (touch1 && touch2) {
         const dist = this.touchS.getDistance(
@@ -84,18 +90,28 @@ export class ClientMapComponent implements OnInit {
           }
         );
 
-        if (!lastDist) {
-          lastDist = dist;
+        if (!this.lastDist) {
+          this.lastDist = dist;
         }
 
-        this.scale = (this.stage.scaleX() * dist) / lastDist;
-
-        this.stage.scaleX(this.scale);
-        this.stage.scaleY(this.scale);
+        this.scale = (this.stage.scaleX() * dist) / this.lastDist;
+        this.scale = this.scale < 1 ? 1 : this.scale > 4 ? 4 : this.scale;
+        this.stage.scale({
+          x: this.scale,
+          y: this.scale
+        });
         this.stage.draw();
-        lastDist = dist;
+        this.lastDist = dist;
       }
-    });
+    }, false);
+
+    this.stage.getContent().addEventListener(
+      'touchend',
+      () => {
+        this.lastDist = 0;
+      },
+      false
+    );
   }
 
   countPosition(pos: { x: number, y: number }) {

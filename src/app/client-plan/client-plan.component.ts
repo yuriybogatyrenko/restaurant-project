@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
+import {IRestaurantTable} from '../interfaces/restaurant-table.interface';
+import {tables} from '../mokcs/tables';
 
 @Component({
   selector: 'app-client-plan',
@@ -6,10 +9,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./client-plan.component.sass']
 })
 export class ClientPlanComponent implements OnInit {
+  tables$: BehaviorSubject<IRestaurantTable[]> = new BehaviorSubject([]);
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
+    this.tables$.next(tables);
   }
 
 }
