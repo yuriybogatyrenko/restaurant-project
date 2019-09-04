@@ -144,6 +144,9 @@ SOFTWARE.
 ng2-konva
 MIT
 
+ngx-take-until-destroy
+MIT
+
 rxjs
 Apache-2.0
                                Apache License
