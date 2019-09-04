@@ -1,5 +1,5 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {IRestaurantTable} from '../../interfaces/restaurant-table.interface';
+import {IRestaurantTable, RestaurantTableTypeEnum} from '../../interfaces/restaurant-table.interface';
 import Konva from 'konva';
 import {TouchHelperService} from '../../_services/touch-helper/touch-helper.service';
 
@@ -13,8 +13,10 @@ export class ClientMapComponent implements OnInit {
   @Input() tables: IRestaurantTable[];
 
   stage: Konva.Stage;
-  layer: Konva.Layer;
+  mapLayer: Konva.Layer;
+  tablesLayer: Konva.Layer;
   scale = 1;
+  mapScale;
   lastDist = 0;
 
   constructor(private elRef: ElementRef,
@@ -22,8 +24,6 @@ export class ClientMapComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.tables);
-
     const _self = this;
     this.stage = new Konva.Stage({
       draggable: true,
@@ -48,16 +48,21 @@ export class ClientMapComponent implements OnInit {
       container: 'table-map'
     });
 
-    this.layer = new Konva.Layer();
+    this.mapLayer = new Konva.Layer();
 
-    this.stage.add(this.layer);
+    this.stage.add(this.mapLayer);
+
+    this.tablesLayer = new Konva.Layer();
+    this.stage.add(this.tablesLayer);
+
     const image = new Image();
     image.src = './assets/resto.jpg';
 
     image.onload = () => {
       const scale = Math.min(this.stage.width() / image.width, this.stage.height() / image.height);
-      console.log((this.stage.width() - image.width * scale) / 2);
-      console.log((this.stage.height() - image.height * scale) / 2);
+      this.mapScale = scale;
+      // console.log((this.stage.width() - image.width * scale) / 2);
+      // console.log((this.stage.height() - image.height * scale) / 2);
       this.stage.width(image.width * scale);
       this.stage.height(image.height * scale);
 
@@ -69,14 +74,15 @@ export class ClientMapComponent implements OnInit {
         height: image.height * scale
       });
 
-      this.layer.add(imageLayer);
-      this.layer.draw();
+      this.mapLayer.add(imageLayer);
+      this.mapLayer.draw();
+      this.drawTables();
     };
 
     this.stage.getContent().addEventListener('touchmove', (e: TouchEvent) => {
       const touch1 = e.touches[0];
       const touch2 = e.touches[1];
-      console.log(e.touches);
+      // console.log(e.touches);
 
       if (touch1 && touch2) {
         const dist = this.touchS.getDistance(
@@ -112,6 +118,10 @@ export class ClientMapComponent implements OnInit {
       },
       false
     );
+
+    this.tablesLayer.on('click tap', (e) => {
+      this.preview.emit(this.tables.find(table => table.id.toString() === e.target.name()));
+    });
   }
 
   countPosition(pos: { x: number, y: number }) {
@@ -135,5 +145,43 @@ export class ClientMapComponent implements OnInit {
     }
 
     return [x, y];
+  }
+
+  drawTables() {
+    this.tables.forEach((table: IRestaurantTable) => {
+      console.log(table);
+      let _table;
+      if (table.type === RestaurantTableTypeEnum.SQUARE || table.type === RestaurantTableTypeEnum.POLYGON) {
+        _table = new Konva.Rect({
+          x: table.position.x * this.mapScale,
+          y: table.position.y * this.mapScale,
+          width: table.position.width * this.mapScale,
+          height: table.position.height * this.mapScale,
+          strokeWidth: 1,
+          stroke: '#000',
+          fill: 'rgba(0,0,0,0.2)',
+          name: table.id.toString(),
+          rotation: table.position.rotate
+        });
+      } else if (table.type === RestaurantTableTypeEnum.ROUND) {
+        _table = new Konva.Circle({
+          x: table.position.x * this.mapScale,
+          y: table.position.y * this.mapScale,
+          // width: table.position.width,
+          // height: table.position.height,
+          strokeWidth: 1,
+          stroke: '#000',
+          fill: 'rgba(0,0,0,0.2)',
+          name: table.id.toString(),
+          radius: table.position.width / 2 * this.mapScale
+        });
+      }
+
+      if (!!_table) {
+        this.tablesLayer.add(_table);
+        this.tablesLayer.draw();
+      }
+
+    });
   }
 }

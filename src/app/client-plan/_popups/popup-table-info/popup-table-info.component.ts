@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material';
+import {IRestaurantTable} from '../../../interfaces/restaurant-table.interface';
 
 @Component({
   selector: 'app-popup-table-info',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PopupTableInfoComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Inject(MAT_DIALOG_DATA) public table: IRestaurantTable) { }
 
   ngOnInit() {
   }

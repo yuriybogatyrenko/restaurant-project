@@ -4,6 +4,7 @@ export interface IRestaurantTable {
   number: number;
   count: number;
   gallery: IRestaurantTableGalleryItem[];
+  type: RestaurantTableTypeEnum;
   furniture?: {
     sofa3: number,
     sofa2: number,
@@ -16,6 +17,12 @@ export interface IRestaurantTable {
     height: number,
     rotate: number
   };
+}
+
+export enum RestaurantTableTypeEnum {
+  SQUARE = 'square',
+  ROUND = 'round',
+  POLYGON = 'polygon'
 }
 
 export interface IRestaurantTableGalleryItem {
