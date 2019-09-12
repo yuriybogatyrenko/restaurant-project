@@ -1,7 +1,7 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {IRestaurantTable, RestaurantTableTypeEnum} from '../../interfaces/restaurant-table.interface';
 import Konva from 'konva';
-import {TouchHelperService} from '../../_services/touch-helper/touch-helper.service';
+import {IRestaurantTable, RestaurantTableTypeEnum} from '@interfaces/restaurant-table.interface';
+import {TouchHelperService} from '@app/_services/touch-helper/touch-helper.service';
 
 @Component({
   selector: 'app-client-map',
@@ -15,9 +15,10 @@ export class ClientMapComponent implements OnInit {
   stage: Konva.Stage;
   mapLayer: Konva.Layer;
   tablesLayer: Konva.Layer;
-  scale = 1;
+  scale = 2;
   mapScale;
   lastDist = 0;
+  image;
 
   constructor(private elRef: ElementRef,
               private touchS: TouchHelperService) {
@@ -36,15 +37,14 @@ export class ClientMapComponent implements OnInit {
           [x, y] = [this.absolutePosition().x, this.absolutePosition().y];
         }
 
-        console.log(x, y);
         return {x, y};
       },
       scale: {
         x: this.scale,
         y: this.scale
       },
-      width: window.innerWidth,
-      height: window.innerHeight,
+      width: this.elRef.nativeElement.closest('mat-dialog-container').clientWidth,
+      height: this.elRef.nativeElement.closest('mat-dialog-container').clientHeight,
       container: 'table-map'
     });
 
@@ -56,15 +56,12 @@ export class ClientMapComponent implements OnInit {
     this.stage.add(this.tablesLayer);
 
     const image = new Image();
+    this.image = image;
     image.src = './assets/resto.jpg';
 
     image.onload = () => {
       const scale = Math.min(this.stage.width() / image.width, this.stage.height() / image.height);
       this.mapScale = scale;
-      // console.log((this.stage.width() - image.width * scale) / 2);
-      // console.log((this.stage.height() - image.height * scale) / 2);
-      this.stage.width(image.width * scale);
-      this.stage.height(image.height * scale);
 
       const imageLayer = new Konva.Image({
         image,
@@ -105,6 +102,10 @@ export class ClientMapComponent implements OnInit {
         this.stage.scale({
           x: this.scale,
           y: this.scale
+        });
+        this.stage.offset({
+          x: this.stage.width() * (this.scale - 1) / (this.scale * 2),
+          y: this.stage.height() * (this.scale - 1) / (this.scale * 2),
         });
         this.stage.draw();
         this.lastDist = dist;
@@ -153,8 +154,10 @@ export class ClientMapComponent implements OnInit {
       let _table;
       if (table.type === RestaurantTableTypeEnum.SQUARE || table.type === RestaurantTableTypeEnum.POLYGON) {
         _table = new Konva.Rect({
-          x: table.position.x * this.mapScale,
-          y: table.position.y * this.mapScale,
+          // x: (this.stage.width() - this.image.width * this.mapScale) / 2,
+          // y: (this.stage.height() - this.image.height * this.mapScale) / 2,
+          x: table.position.x * this.mapScale + (this.stage.width() - this.image.width * this.mapScale) / 2,
+          y: table.position.y * this.mapScale + (this.stage.height() - this.image.height * this.mapScale) / 2,
           width: table.position.width * this.mapScale,
           height: table.position.height * this.mapScale,
           strokeWidth: 1,
@@ -165,10 +168,8 @@ export class ClientMapComponent implements OnInit {
         });
       } else if (table.type === RestaurantTableTypeEnum.ROUND) {
         _table = new Konva.Circle({
-          x: table.position.x * this.mapScale,
-          y: table.position.y * this.mapScale,
-          // width: table.position.width,
-          // height: table.position.height,
+          x: table.position.x * this.mapScale + (this.stage.width() - this.image.width * this.mapScale) / 2,
+          y: table.position.y * this.mapScale + (this.stage.height() - this.image.height * this.mapScale) / 2,
           strokeWidth: 1,
           stroke: '#000',
           fill: 'rgba(0,0,0,0.2)',

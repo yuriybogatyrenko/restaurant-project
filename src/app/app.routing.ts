@@ -4,15 +4,15 @@ import {Routes, RouterModule} from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import(`./client-plan/client-plan.module`).then(m => m.ClientPlanModule)
+    loadChildren: `./client/client.module#ClientModule`
   },
   {
     path: 'admin',
-    loadChildren: () => import(`./restaurant-plan/restaurant-plan.module`).then(m => m.RestaurantPlanModule)
+    loadChildren: `./restaurant/restaurant.module#RestaurantModule`
   },
   {
     path: '**',
-    redirectTo: ''
+    redirectTo: '/admin/plan'
   }
 ];
 

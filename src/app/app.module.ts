@@ -3,9 +3,11 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {AppRouting} from './app.routing';
-import {RestaurantPlanModule} from './restaurant-plan/restaurant-plan.module';
 import {RouterModule} from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AkitaNgDevtools} from '@datorama/akita-ngdevtools';
+import {environment} from '@env/environment';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -15,8 +17,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     BrowserModule,
     BrowserAnimationsModule,
     AppRouting,
-    RestaurantPlanModule,
-    RouterModule
+    RouterModule,
+    HttpClientModule,
+    environment.production ? [] : AkitaNgDevtools.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

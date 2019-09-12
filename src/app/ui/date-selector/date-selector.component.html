@@ -1,0 +1,17 @@
+<div class="pt-3 pb-3">
+  <div class="d-flex justify-content-between align-items-center">
+    <div>
+      Дата
+    </div>
+    <div>
+      Сегодня • 14 сен, среда
+    </div>
+  </div>
+  <div>
+    <table class="col">
+      <tr *ngFor="let week of calendar">
+        <td *ngFor="let day of week">{{day | amDateFormat:'DD'}}</td>
+      </tr>
+    </table>
+  </div>
+</div>

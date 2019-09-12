@@ -8,10 +8,10 @@ export const tables: IRestaurantTable[] = [
     count: 2,
     gallery: [],
     position: {
-      x: 22,
-      y: 22,
-      width: 30,
-      height: 100,
+      x: 350,
+      y: 93,
+      width: 27,
+      height: 60,
       rotate: 90
     },
     type: RestaurantTableTypeEnum.POLYGON
@@ -23,11 +23,11 @@ export const tables: IRestaurantTable[] = [
     count: 2,
     gallery: [],
     position: {
-      x: 22,
-      y: 22,
-      width: 300,
-      height: 200,
-      rotate: 45
+      x: 320,
+      y: 290,
+      width: 30,
+      height: 60,
+      rotate: 0
     },
     type: RestaurantTableTypeEnum.SQUARE
   },
@@ -38,9 +38,9 @@ export const tables: IRestaurantTable[] = [
     count: 2,
     gallery: [],
     position: {
-      x: 22,
-      y: 22,
-      width: 30,
+      x: 875,
+      y: 370,
+      width: 90,
       height: 100,
       rotate: 90
     },

@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import Konva from 'konva';
+import {RestaurantTableTypeEnum} from '../interfaces/restaurant-table.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class TablesMapService {
     layer.draw();
   }
 
-  addTable(layer, type, options?) {
+  addTable(layer: Konva.Layer, type: RestaurantTableTypeEnum, options?: any) {
     let table;
     const OPTIONS = {
       fill: 'rgba(0,0,0,0.2)',
@@ -53,8 +54,9 @@ export class TablesMapService {
       });
     }
 
-
     layer.add(table);
     layer.draw();
+
+    return table;
   }
 }

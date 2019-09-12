@@ -1,5 +1,6 @@
 export interface IRestaurantTable {
   id: number;
+  uuid?: string;
   title: string;
   number: number;
   count: number;
