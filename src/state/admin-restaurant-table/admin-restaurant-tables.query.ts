@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { QueryEntity } from '@datorama/akita';
-import { AdminRestaurantTablesStore, AdminRestaurantTablesState } from './admin-restaurant-tables.store';
-import { AdminRestaurantTable } from './admin-restaurant-table.model';
+import {Injectable} from '@angular/core';
+import {QueryEntity} from '@datorama/akita';
+import {AdminRestaurantTablesStore, AdminRestaurantTablesState} from './admin-restaurant-tables.store';
+import {AdminRestaurantTable} from './admin-restaurant-table.model';
 
 @Injectable({
   providedIn: 'root'

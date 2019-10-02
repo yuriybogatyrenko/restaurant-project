@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { TouchHelperService } from './touch-helper.service';
+import {TouchHelperService} from './touch-helper.service';
 
 describe('TouchHelperService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

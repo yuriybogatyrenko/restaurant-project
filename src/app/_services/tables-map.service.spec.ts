@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { TablesMapService } from './tables-map.service';
+import {TablesMapService} from './tables-map.service';
 
 describe('TablesMapService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

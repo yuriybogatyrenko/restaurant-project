@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PopupTableSettingsComponent } from './popup-table-settings.component';
+import {PopupTableSettingsComponent} from './popup-table-settings.component';
 
 describe('PopupTableSettingsComponent', () => {
   let component: PopupTableSettingsComponent;
@@ -8,9 +8,9 @@ describe('PopupTableSettingsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PopupTableSettingsComponent ]
+      declarations: [PopupTableSettingsComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

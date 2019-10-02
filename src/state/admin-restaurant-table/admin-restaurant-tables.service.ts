@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { ID } from '@datorama/akita';
-import { AdminRestaurantTablesStore } from './admin-restaurant-tables.store';
-import { AdminRestaurantTablesDataService } from './admin-restaurant-tables-data.service';
+import {Injectable} from '@angular/core';
+import {ID} from '@datorama/akita';
+import {AdminRestaurantTablesStore} from './admin-restaurant-tables.store';
+import {AdminRestaurantTablesDataService} from './admin-restaurant-tables-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +14,13 @@ export class AdminRestaurantTablesService {
 
   get() {
     // this.adminRestaurantTablesDataService.get().subscribe((entities: ServerResponse) => {
-      // this.adminRestaurantTablesStore.set(entities);
+    // this.adminRestaurantTablesStore.set(entities);
     // });
   }
 
   add() {
     // this.adminRestaurantTablesDataService.post().subscribe((entity: ServerResponse) => {
-      // this.adminRestaurantTablesStore.add(entity);
+    // this.adminRestaurantTablesStore.add(entity);
     // });
   }
 

@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { GuestsSelectorComponent } from './guests-selector.component';
+import {GuestsSelectorComponent} from './guests-selector.component';
 
 describe('GuestsSelectorComponent', () => {
   let component: GuestsSelectorComponent;
@@ -8,9 +8,9 @@ describe('GuestsSelectorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GuestsSelectorComponent ]
+      declarations: [GuestsSelectorComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -8,10 +8,12 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AkitaNgDevtools} from '@datorama/akita-ngdevtools';
 import {environment} from '@env/environment';
 import {HttpClientModule} from '@angular/common/http';
+import {UiNotificationModule} from "@app/ui/ui-notification/ui-notification.module";
+import {KitOverlayModule} from "@ngx-kit/core";
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -19,7 +21,9 @@ import {HttpClientModule} from '@angular/common/http';
     AppRouting,
     RouterModule,
     HttpClientModule,
-    environment.production ? [] : AkitaNgDevtools.forRoot()
+    environment.production ? [] : AkitaNgDevtools.forRoot(),
+    UiNotificationModule.forRoot(),
+    KitOverlayModule
   ],
   providers: [],
   bootstrap: [AppComponent]

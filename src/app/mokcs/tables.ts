@@ -1,4 +1,16 @@
-import {IRestaurantTable, RestaurantTableTypeEnum} from '../interfaces/restaurant-table.interface';
+import {
+  IRestaurantTable, IRestaurantTableTimeline,
+  RestaurantTableStatusEnum,
+  RestaurantTableTypeEnum
+} from "@interfaces/restaurant-table.interface";
+
+export const tableTimeline: IRestaurantTableTimeline[] = [
+  {
+    id: 1,
+    timeStart: 9 * 60,
+    timeEnd: 12 * 60
+  },
+];
 
 export const tables: IRestaurantTable[] = [
   {
@@ -14,7 +26,16 @@ export const tables: IRestaurantTable[] = [
       height: 60,
       rotate: 90
     },
-    type: RestaurantTableTypeEnum.POLYGON
+    type: RestaurantTableTypeEnum.POLYGON,
+    status: RestaurantTableStatusEnum.DEFAULT,
+    _timeline: [
+      ...tableTimeline,
+      {
+        id: 1,
+        timeStart: 14 * 60,
+        timeEnd: 24 * 60
+      },
+    ]
   },
   {
     id: 2,
@@ -29,7 +50,9 @@ export const tables: IRestaurantTable[] = [
       height: 60,
       rotate: 0
     },
-    type: RestaurantTableTypeEnum.SQUARE
+    type: RestaurantTableTypeEnum.SQUARE,
+    status: RestaurantTableStatusEnum.BLOCKED,
+    _timeline: tableTimeline
   },
   {
     id: 3,
@@ -44,7 +67,8 @@ export const tables: IRestaurantTable[] = [
       height: 100,
       rotate: 90
     },
-    type: RestaurantTableTypeEnum.ROUND
+    type: RestaurantTableTypeEnum.ROUND,
+    status: RestaurantTableStatusEnum.ACTIVE,
+    _timeline: tableTimeline
   },
-
 ];

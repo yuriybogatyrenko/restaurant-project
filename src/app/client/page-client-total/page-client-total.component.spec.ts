@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PageClientTotalComponent } from './page-client-total.component';
+import {PageClientTotalComponent} from './page-client-total.component';
 
 describe('PageClientTotalComponent', () => {
   let component: PageClientTotalComponent;
@@ -8,9 +8,9 @@ describe('PageClientTotalComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PageClientTotalComponent ]
+      declarations: [PageClientTotalComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

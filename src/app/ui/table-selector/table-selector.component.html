@@ -1,14 +1,23 @@
 <div class="pt-3 pb-3">
-  <div>Столик</div>
-  <div class="d-flex align-items-center justify-content-between">
-    <div>Любой</div>
-    <div><button class="btn btn-secondary" (click)="selectTable($event)">Выбрать</button></div>
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <div class="caption-medium">Столик</div>
+    <div class="fw-color-gray fw-fz-15">
+      2 свободно
+    </div>
   </div>
-  <div class="d-flex align-items-center justify-content-between">
-    <div>2</div>
+  <div class="d-flex align-items-center justify-content-between" *ngIf="!state">
+    <div class="fw-fz-15">Любой</div>
     <div>
-      <button class="btn btn-secondary mr-2">Изменить</button>
-      <button class="btn btn-secondary"><i class="fas fa-trash"></i></button>
+      <button type="button" class="btn btn-secondary" (click)="selectTable($event)">Выбрать</button>
+    </div>
+  </div>
+  <div class="d-flex align-items-center justify-content-between" *ngIf="state">
+    <div class="fw-fz-15">{{state.number}}</div>
+    <div>
+      <button type="button" class="btn btn-secondary mr-2" (click)="selectTable($event)">Изменить</button>
+      <button type="button" class="btn btn-secondary" (click)="deleteSelectedTable()">
+        <img src="/assets/icons/icon-trash.svg" alt="">
+      </button>
     </div>
   </div>
 </div>

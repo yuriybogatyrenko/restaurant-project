@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { RestaurantItemComponent } from './restaurant-item.component';
+import {RestaurantItemComponent} from './restaurant-item.component';
 
 describe('RestaurantItemComponent', () => {
   let component: RestaurantItemComponent;
@@ -8,9 +8,9 @@ describe('RestaurantItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RestaurantItemComponent ]
+      declarations: [RestaurantItemComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

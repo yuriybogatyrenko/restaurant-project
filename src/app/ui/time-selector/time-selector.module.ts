@@ -1,7 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TimeSelectorComponent } from './time-selector.component';
-
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {TimeSelectorComponent} from './time-selector.component';
 
 
 @NgModule({
@@ -11,4 +10,5 @@ import { TimeSelectorComponent } from './time-selector.component';
     CommonModule
   ]
 })
-export class TimeSelectorModule { }
+export class TimeSelectorModule {
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-page-client-total',
@@ -6,8 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page-client-total.component.sass']
 })
 export class PageClientTotalComponent implements OnInit {
+  @Input() type: 'SMS' | 'CALL' = 'SMS';
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

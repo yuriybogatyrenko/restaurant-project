@@ -1,16 +1,20 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DateSelectorComponent } from './date-selector.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {DateSelectorComponent} from './date-selector.component';
 import {MomentModule} from 'ngx-moment';
-
+import {DateSelectorDayPipe} from "@app/ui/date-selector/date-selector.pipe";
 
 
 @NgModule({
-  declarations: [DateSelectorComponent],
+  declarations: [
+    DateSelectorComponent,
+    DateSelectorDayPipe
+  ],
   exports: [DateSelectorComponent],
   imports: [
     CommonModule,
     MomentModule
   ]
 })
-export class DateSelectorModule { }
+export class DateSelectorModule {
+}

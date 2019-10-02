@@ -1,11 +1,13 @@
 <div class="pt-3 pb-3 d-flex justify-content-between align-items-center">
-  <div>2 гостя</div>
+  <div class="caption-medium">{{state}} {{ending}}</div>
   <div>
-    <button class="circle-button mr-3">
-      <i class="fas fa-minus"></i>
+    <button type="button" class="d-inline-flex justify-content-center align-items-center circle-button mr-3"
+            (click)="decrease($event)">
+      <i class="icon icon-minus"></i>
     </button>
-    <button class="circle-button">
-      <i class="fas fa-plus"></i>
+    <button type="button" class="d-inline-flex justify-content-center align-items-center circle-button"
+            (click)="increase($event)">
+      <i class="icon icon-plus"></i>
     </button>
   </div>
 </div>

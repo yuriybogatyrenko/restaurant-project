@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-restaurant-item',
@@ -6,6 +6,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./restaurant-item.component.sass']
 })
 export class RestaurantItemComponent implements OnInit {
+  @Input() showPoster = true;
 
   constructor() {
   }

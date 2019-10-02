@@ -18,6 +18,20 @@ export interface IRestaurantTable {
     height: number,
     rotate: number
   };
+  status: RestaurantTableStatusEnum,
+  _timeline?: IRestaurantTableTimeline[]
+}
+
+export interface IRestaurantTableTimeline {
+  id: number,
+  timeStart: number,
+  timeEnd: number,
+}
+
+export enum RestaurantTableStatusEnum {
+  BLOCKED = 'blocked',
+  ACTIVE = 'selected',
+  DEFAULT = 'default'
 }
 
 export enum RestaurantTableTypeEnum {

@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TableSelectorComponent } from './table-selector.component';
+import {TableSelectorComponent} from './table-selector.component';
 
 describe('TableSelectorComponent', () => {
   let component: TableSelectorComponent;
@@ -8,9 +8,9 @@ describe('TableSelectorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TableSelectorComponent ]
+      declarations: [TableSelectorComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

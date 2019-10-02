@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PageClientReservationComponent } from './page-client-reservation.component';
+import {PageClientReservationComponent} from './page-client-reservation.component';
 
 describe('PageClientReservationComponent', () => {
   let component: PageClientReservationComponent;
@@ -8,9 +8,9 @@ describe('PageClientReservationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PageClientReservationComponent ]
+      declarations: [PageClientReservationComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
