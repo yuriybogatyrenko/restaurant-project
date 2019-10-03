@@ -249,8 +249,8 @@ export class ClientMapComponent implements OnInit {
       let _info;
 
       let _group = new Konva.Group({
-        x: table.position.x * this.mapScale + (this.stage.width() - this.image.width * this.mapScale) / 2,
-        y: table.position.y * this.mapScale + (this.stage.height() - this.image.height * this.mapScale) / 2,
+        x: (table.position.x + (table.type === RestaurantTableTypeEnum.ROUND ? table.position.width / 2 : 0)) * this.mapScale + (this.stage.width() - this.image.width * this.mapScale) / 2,
+        y: (table.position.y + (table.type === RestaurantTableTypeEnum.ROUND ? table.position.width / 2 : 0)) * this.mapScale + (this.stage.height() - this.image.height * this.mapScale) / 2,
         id: table.id.toString()
       });
 
@@ -279,7 +279,7 @@ export class ClientMapComponent implements OnInit {
       if (table.status !== RestaurantTableStatusEnum.BLOCKED) {
         _info = new Konva.Text({
           text: table.number.toString(),
-          fontSize: 16 * this.mapScale,
+          fontSize: Math.min(16, 16 * 2 / table.number.toString().split('').filter(item => item !== '.').length) * this.mapScale,
           rotation: -table.position.rotate,
           id: 'text-' + table.id.toString(),
           ...this.style.default.text,
@@ -300,7 +300,7 @@ export class ClientMapComponent implements OnInit {
           this.drawElements(table, _info, _table, _group);
         };
 
-        img.src = '/assets/icons/icon-table-lock.svg';
+        img.src = './assets/icons/icon-table-lock.svg';
       }
 
     });

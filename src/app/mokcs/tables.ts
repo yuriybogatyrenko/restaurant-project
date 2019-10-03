@@ -1,8 +1,9 @@
 import {
-  IRestaurantTable, IRestaurantTableTimeline,
+  IRestaurantTable,
+  IRestaurantTableTimeline,
   RestaurantTableStatusEnum,
   RestaurantTableTypeEnum
-} from "@interfaces/restaurant-table.interface";
+} from '@interfaces/restaurant-table.interface';
 
 export const tableTimeline: IRestaurantTableTimeline[] = [
   {
@@ -12,19 +13,44 @@ export const tableTimeline: IRestaurantTableTimeline[] = [
   },
 ];
 
+const tableDefault = {
+  id: 1,
+  title: 'VIP 21',
+  number: 1,
+  count: 2,
+  gallery: [],
+  position: {
+    x: 117,
+    y: 244,
+    width: 30,
+    height: 46,
+    rotate: 0
+  },
+  type: RestaurantTableTypeEnum.POLYGON,
+  status: RestaurantTableStatusEnum.DEFAULT,
+  _timeline: [
+    ...tableTimeline,
+    {
+      id: 1,
+      timeStart: 14 * 60,
+      timeEnd: 24 * 60
+    },
+  ]
+};
+
 export const tables: IRestaurantTable[] = [
   {
     id: 1,
     title: 'VIP 21',
-    number: 22,
+    number: 1,
     count: 2,
     gallery: [],
     position: {
-      x: 350,
-      y: 93,
-      width: 27,
-      height: 60,
-      rotate: 90
+      x: 117,
+      y: 244,
+      width: 30,
+      height: 46,
+      rotate: 0
     },
     type: RestaurantTableTypeEnum.POLYGON,
     status: RestaurantTableStatusEnum.DEFAULT,
@@ -39,36 +65,654 @@ export const tables: IRestaurantTable[] = [
   },
   {
     id: 2,
-    title: 'VIP 22',
-    number: 22,
+    title: 'VIP 21',
+    number: 2,
     count: 2,
     gallery: [],
     position: {
-      x: 320,
-      y: 290,
+      x: 117,
+      y: 198,
       width: 30,
-      height: 60,
+      height: 46,
       rotate: 0
     },
-    type: RestaurantTableTypeEnum.SQUARE,
-    status: RestaurantTableStatusEnum.BLOCKED,
-    _timeline: tableTimeline
+    type: RestaurantTableTypeEnum.POLYGON,
+    status: RestaurantTableStatusEnum.DEFAULT,
+    _timeline: [
+      ...tableTimeline,
+      {
+        id: 1,
+        timeStart: 14 * 60,
+        timeEnd: 24 * 60
+      },
+    ]
   },
   {
     id: 3,
-    title: 'VIP 23',
+    title: 'VIP 21',
+    number: 3,
+    count: 2,
+    gallery: [],
+    position: {
+      x: 117,
+      y: 151,
+      width: 30,
+      height: 46,
+      rotate: 0
+    },
+    type: RestaurantTableTypeEnum.POLYGON,
+    status: RestaurantTableStatusEnum.DEFAULT,
+    _timeline: [
+      ...tableTimeline,
+      {
+        id: 1,
+        timeStart: 14 * 60,
+        timeEnd: 24 * 60
+      },
+    ]
+  },
+  {
+    id: 3,
+    title: 'VIP 21',
+    number: 23,
+    count: 2,
+    gallery: [],
+    position: {
+      x: 99,
+      y: 363,
+      width: 61,
+      height: 30,
+      rotate: 0
+    },
+    type: RestaurantTableTypeEnum.POLYGON,
+    status: RestaurantTableStatusEnum.DEFAULT,
+    _timeline: [
+      ...tableTimeline,
+      {
+        id: 1,
+        timeStart: 14 * 60,
+        timeEnd: 24 * 60
+      },
+    ]
+  },
+  {
+    id: 3,
+    title: 'VIP 21',
     number: 22,
     count: 2,
     gallery: [],
     position: {
-      x: 875,
-      y: 370,
-      width: 90,
-      height: 100,
-      rotate: 90
+      x: 99,
+      y: 449,
+      width: 61,
+      height: 30,
+      rotate: 0
     },
-    type: RestaurantTableTypeEnum.ROUND,
-    status: RestaurantTableStatusEnum.ACTIVE,
-    _timeline: tableTimeline
+    type: RestaurantTableTypeEnum.POLYGON,
+    status: RestaurantTableStatusEnum.DEFAULT,
+    _timeline: [
+      ...tableTimeline,
+      {
+        id: 1,
+        timeStart: 14 * 60,
+        timeEnd: 24 * 60
+      },
+    ]
   },
-];
+  {
+    id: 3,
+    title: 'VIP 21',
+    number: 21,
+    count: 2,
+    gallery: [],
+    position: {
+      x: 99,
+      y: 536,
+      width: 61,
+      height: 30,
+      rotate: 0
+    },
+    type: RestaurantTableTypeEnum.POLYGON,
+    status: RestaurantTableStatusEnum.DEFAULT,
+    _timeline: [
+      ...tableTimeline,
+      {
+        id: 1,
+        timeStart: 14 * 60,
+        timeEnd: 24 * 60
+      },
+    ]
+  },
+  {
+    id: 3,
+    title: 'VIP 21',
+    number: 20,
+    count: 2,
+    gallery: [],
+    position: {
+      x: 99,
+      y: 620,
+      width: 61,
+      height: 30,
+      rotate: 0
+    },
+    type: RestaurantTableTypeEnum.POLYGON,
+    status: RestaurantTableStatusEnum.DEFAULT,
+    _timeline: [
+      ...tableTimeline,
+      {
+        id: 1,
+        timeStart: 14 * 60,
+        timeEnd: 24 * 60
+      },
+    ]
+  },
+  {
+    id: 3,
+    title: 'VIP 21',
+    number: 49,
+    count: 2,
+    gallery: [],
+    position: {
+      x: 324,
+      y: 127,
+      width: 30,
+      height: 59,
+      rotate: 0
+    },
+    type: RestaurantTableTypeEnum.POLYGON,
+    status: RestaurantTableStatusEnum.DEFAULT,
+    _timeline: [
+      ...tableTimeline,
+      {
+        id: 1,
+        timeStart: 14 * 60,
+        timeEnd: 24 * 60
+      },
+    ]
+  },
+  {
+    id: 3,
+    title: 'VIP 21',
+    number: 48,
+    count: 2,
+    gallery: [],
+    position: {
+      x: 328,
+      y: 227,
+      width: 30,
+      height: 30,
+      rotate: -6.07
+    },
+    type: RestaurantTableTypeEnum.POLYGON,
+    status: RestaurantTableStatusEnum.DEFAULT,
+    _timeline: [
+      ...tableTimeline,
+      {
+        id: 1,
+        timeStart: 14 * 60,
+        timeEnd: 24 * 60
+      },
+    ]
+  },
+  {
+    ...tableDefault,
+    number: 47,
+    position: {
+      x: 449,
+      y: 217,
+      width: 45,
+      height: 30,
+      rotate: -6.55
+    }
+  },
+  {
+    id: 3,
+    title: 'VIP 21',
+    number: 41,
+    count: 2,
+    gallery: [],
+    position: {
+      x: 314,
+      y: 336,
+      width: 45,
+      height: 30,
+      rotate: -7.21
+    },
+    type: RestaurantTableTypeEnum.POLYGON,
+    status: RestaurantTableStatusEnum.DEFAULT,
+    _timeline: [
+      ...tableTimeline,
+      {
+        id: 1,
+        timeStart: 14 * 60,
+        timeEnd: 24 * 60
+      },
+    ]
+  },
+  {
+    id: 3,
+    title: 'VIP 21',
+    number: 40,
+    count: 2,
+    gallery: [],
+    position: {
+      x: 325,
+      y: 420,
+      width: 45,
+      height: 30,
+      rotate: -7.21
+    },
+    type: RestaurantTableTypeEnum.POLYGON,
+    status: RestaurantTableStatusEnum.DEFAULT,
+    _timeline: [
+      ...tableTimeline,
+      {
+        id: 1,
+        timeStart: 14 * 60,
+        timeEnd: 24 * 60
+      },
+    ]
+  },
+  {
+    ...tableDefault,
+    number: 42,
+    position: {
+      x: 401,
+      y: 393,
+      width: 30,
+      height: 59,
+      rotate: -8.2
+    }
+  },
+  {
+    ...tableDefault,
+    number: 43,
+    position: {
+      x: 390,
+      y: 325,
+      width: 30,
+      height: 59,
+      rotate: -8.2
+    }
+  },
+  {
+    ...tableDefault,
+    number: 24,
+    position: {
+      x: 216,
+      y: 628,
+      width: 30,
+      height: 30,
+      rotate: 0
+    }
+  },
+  {
+    ...tableDefault,
+    number: 25,
+    position: {
+      x: 216,
+      y: 545,
+      width: 30,
+      height: 30,
+      rotate: 0
+    }
+  },
+  {
+    ...tableDefault,
+    number: 36,
+    position: {
+      x: 256,
+      y: 628,
+      width: 61,
+      height: 30,
+      rotate: 0
+    }
+  },
+  {
+    ...tableDefault,
+    number: 37,
+    position: {
+      x: 256,
+      y: 545,
+      width: 61,
+      height: 30,
+      rotate: 0
+    }
+  },
+  {
+    ...tableDefault,
+    number: 38,
+    position: {
+      x: 245,
+      y: 436,
+      width: 45,
+      height: 30,
+      rotate: -7.21
+    }
+  },
+  {
+    ...tableDefault,
+    number: 30,
+    position: {
+      x: 375,
+      y: 585,
+      width: 30,
+      height: 30,
+      rotate: 0
+    }
+  },
+  {
+    ...tableDefault,
+    number: 31,
+    position: {
+      x: 415,
+      y: 585,
+      width: 30,
+      height: 30,
+      rotate: 0
+    }
+  },
+  {
+    ...tableDefault,
+    number: 32,
+    position: {
+      x: 455,
+      y: 585,
+      width: 30,
+      height: 30,
+      rotate: 0
+    }
+  },
+  {
+    ...tableDefault,
+    number: 33,
+    position: {
+      x: 495,
+      y: 585,
+      width: 30,
+      height: 30,
+      rotate: 0
+    }
+  },
+  {
+    ...tableDefault,
+    number: 34,
+    position: {
+      x: 394,
+      y: 497,
+      width: 30,
+      height: 59,
+      rotate: 0
+    }
+  },
+  {
+    ...tableDefault,
+    number: 35,
+    position: {
+      x: 477,
+      y: 497,
+      width: 30,
+      height: 59,
+      rotate: 0
+    }
+  },
+  {
+    ...tableDefault,
+    number: 44,
+    type: RestaurantTableTypeEnum.ROUND,
+    position: {
+      x: 502,
+      y: 394,
+      width: 30,
+      height: 59,
+      rotate: -7.21
+    }
+  },
+  {
+    ...tableDefault,
+    number: 44.1,
+    position: {
+      x: 519,
+      y: 455,
+      width: 24,
+      height: 24,
+      rotate: 24.07
+    }
+  },
+  {
+    ...tableDefault,
+    number: 45,
+    type: RestaurantTableTypeEnum.ROUND,
+    position: {
+      x: 491,
+      y: 328,
+      width: 30,
+      height: 30,
+      rotate: 0
+    }
+  },
+  {
+    ...tableDefault,
+    number: 46,
+    type: RestaurantTableTypeEnum.ROUND,
+    position: {
+      x: 482,
+      y: 264,
+      width: 30,
+      height: 30,
+      rotate: 0
+    }
+  },
+  {
+    ...tableDefault,
+    number: 50,
+    position: {
+      x: 585,
+      y: 488,
+      width: 24,
+      height: 24,
+      rotate: 24.07
+    }
+  },
+  {
+    ...tableDefault,
+    number: 50.1,
+    position: {
+      x: 574,
+      y: 422,
+      width: 24,
+      height: 24,
+      rotate: 24.07
+    }
+  },
+  {
+    ...tableDefault,
+    number: 51,
+    position: {
+      x: 650,
+      y: 489,
+      width: 24,
+      height: 24,
+      rotate: 24.07
+    }
+  },
+  {
+    ...tableDefault,
+    number: 52,
+    position: {
+      x: 638,
+      y: 430,
+      width: 24,
+      height: 24,
+      rotate: 24.07
+    }
+  },
+  {
+    ...tableDefault,
+    number: 53,
+    position: {
+      x: 715,
+      y: 488,
+      width: 24,
+      height: 24,
+      rotate: 24.07
+    }
+  },
+  {
+    ...tableDefault,
+    number: 54,
+    position: {
+      x: 701,
+      y: 428,
+      width: 24,
+      height: 24,
+      rotate: 24.07
+    }
+  },
+  {
+    ...tableDefault,
+    number: 55,
+    position: {
+      x: 780,
+      y: 488,
+      width: 24,
+      height: 24,
+      rotate: 24.07
+    }
+  },
+  {
+    ...tableDefault,
+    number: 56,
+    position: {
+      x: 764,
+      y: 426,
+      width: 24,
+      height: 24,
+      rotate: 24.07
+    }
+  },
+  {
+    ...tableDefault,
+    number: 57,
+    position: {
+      x: 743,
+      y: 368,
+      width: 24,
+      height: 24,
+      rotate: 24.07
+    }
+  },
+  {
+    ...tableDefault,
+    number: 58,
+    position: {
+      x: 825,
+      y: 430,
+      width: 47,
+      height: 30,
+      rotate: -21.26
+    }
+  },
+  {
+    ...tableDefault,
+    number: 59,
+    position: {
+      x: 796,
+      y: 359,
+      width: 47,
+      height: 30,
+      rotate: -21.26
+    }
+  },
+  {
+    ...tableDefault,
+    number: 60,
+    position: {
+      x: 941,
+      y: 560,
+      width: 47,
+      height: 30,
+      rotate: -21.26
+    }
+  },
+  {
+    ...tableDefault,
+    number: 61,
+    position: {
+      x: 876,
+      y: 410,
+      width: 47,
+      height: 30,
+      rotate: -21.26
+    }
+  },
+  {
+    ...tableDefault,
+    number: 62,
+    position: {
+      x: 847,
+      y: 340,
+      width: 47,
+      height: 30,
+      rotate: -21.26
+    }
+  },
+  {
+    ...tableDefault,
+    number: 63,
+    position: {
+      x: 1052,
+      y: 512,
+      width: 47,
+      height: 30,
+      rotate: -23.79
+    }
+  },
+  {
+    ...tableDefault,
+    number: 64,
+    position: {
+      x: 1013,
+      y: 443,
+      width: 61,
+      height: 30,
+      rotate: -23.18
+    }
+  },
+  {
+    ...tableDefault,
+    number: 65,
+    position: {
+      x: 976,
+      y: 371,
+      width: 61,
+      height: 30,
+      rotate: -23.18
+    }
+  },
+  {
+    ...tableDefault,
+    number: 66,
+    position: {
+      x: 937,
+      y: 275 + 23,
+      width: 61,
+      height: 30,
+      rotate: -23.18
+    }
+  },
+  {
+    ...tableDefault,
+    number: 67,
+    position: {
+      x: 897,
+      y: 201+23,
+      width: 61,
+      height: 30,
+      rotate: -23.18
+    }
+  }
+].map((item, index) => {
+  return {...item, id: index + 1};
+});

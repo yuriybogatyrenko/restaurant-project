@@ -13,12 +13,12 @@ import {TimeSelectorModule} from '@app/ui/time-selector/time-selector.module';
 import {TableSelectorModule} from '@app/ui/table-selector/table-selector.module';
 import {ClientPlanModule} from '@app/client-plan/client-plan.module';
 import {MatDialogModule} from '@angular/material';
-import {ReactiveFormsModule} from "@angular/forms";
-import {TextareaModule} from "@app/ui/textarea/textarea.module";
-import {ClientHeaderModule} from "@app/shared/client-header/client-header.module";
-import {UiGroupSelectorModule} from "@app/ui/ui-group-selector/ui-group-selector.module";
+import {ReactiveFormsModule} from '@angular/forms';
+import {TextareaModule} from '@app/ui/textarea/textarea.module';
+import {ClientHeaderModule} from '@app/shared/client-header/client-header.module';
+import {UiGroupSelectorModule} from '@app/ui/ui-group-selector/ui-group-selector.module';
 import {PageClientConfirmComponent} from './page-client-confirm/page-client-confirm.component';
-import {ReservationInfoModule} from "@app/modules/reservation-info/reservation-info.module";
+import {ReservationInfoModule} from '@app/modules/reservation-info/reservation-info.module';
 
 
 @NgModule({
@@ -33,7 +33,6 @@ import {ReservationInfoModule} from "@app/modules/reservation-info/reservation-i
     CommonModule,
     MatDialogModule,
     ClientRouting,
-    ClientPlanModule,
     RestaurantItemModule,
     GuestsSelectorModule,
     DateSelectorModule,
