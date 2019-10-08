@@ -1,11 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import Konva from "konva";
-import {IRestaurantTable} from "@interfaces/restaurant-table.interface";
-import {AdminRestaurantTablesQuery, AdminRestaurantTablesService} from "@state/admin-restaurant-table";
-import {Observable} from "rxjs";
-import {untilDestroyed} from "ngx-take-until-destroy";
-import {tables} from "@app/mokcs/tables";
-import {TimeHelper} from "@app/helpers/time/time.helper";
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import Konva from 'konva';
+import {IRestaurantTable} from '@interfaces/restaurant-table.interface';
+import {AdminRestaurantTablesQuery, AdminRestaurantTablesService} from '@state/admin-restaurant-table';
+import {TimeHelper} from '@app/helpers/time/time.helper';
 
 @Component({
   selector: 'app-gantt-timeline-chart',
@@ -13,9 +10,10 @@ import {TimeHelper} from "@app/helpers/time/time.helper";
   styleUrls: ['./gantt-timeline-chart.component.sass']
 })
 export class GanttTimelineChartComponent implements OnInit, OnDestroy {
-  tables$: Observable<IRestaurantTable[]> = this._tableQ.selectAll();
-  tables: IRestaurantTable[] = tables;
+  @Input() tables: IRestaurantTable[] = [];
   stage: Konva.Stage;
+
+  @Output() tableSelect = new EventEmitter();
 
   lineStyle = {
     stroke: '#000',
@@ -24,9 +22,10 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
 
   timeLineStart: number = 8 * 60;
   timeLineEnd: number = 24 * 60;
-  timeLineStep: number = 30;
-  gridSize: number = 50;
+  timeLineStep: number = 60;
+  gridSize: number = 40;
   minuteFactor: number = this.gridSize / this.timeLineStep;
+  timeLineStrokeWidth = 10;
 
   gridSteps = Math.abs(this.timeLineStart - this.timeLineEnd) / this.timeLineStep;
 
@@ -36,23 +35,19 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.tables$
-      .pipe(untilDestroyed(this))
-      .subscribe((tables) => {
-        // this.tables = tables || [];
-        this.stage = new Konva.Stage({
-          width: this.gridSize * this.gridSteps + this.gridSize,
-          height: this.gridSize * this.tables.length + this.gridSize,
-          container: '#timeline-chart'
-        });
+    // this.tables = tables || [];
+    this.stage = new Konva.Stage({
+      width: this.gridSize * this.gridSteps + this.gridSize,
+      height: this.gridSize * this.tables.length + this.gridSize,
+      container: '#timeline-chart'
+    });
 
-        this.drawGrid();
-        this.drawTables();
+    this.drawGrid();
+    this.drawTables();
 
-        this.drawTimeline();
+    this.drawTimeline();
 
-        this.stage.draw();
-      });
+    this.stage.draw();
   }
 
   drawGrid() {
@@ -77,7 +72,9 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
     }
 
     for (let z = 0; z < this.tables.length + 1; z++) {
-      if (z === 0) continue;
+      if (z === 0) {
+        continue;
+      }
       let horizontalLine = new Konva.Line({
         points: [0, z * this.gridSize, this.stage.width(), z * this.gridSize],
         ...this.lineStyle
@@ -129,7 +126,12 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
     this.tables.forEach((item, index) => {
       item._timeline.forEach((timeline) => {
         const _timeline = new Konva.Line({
-          points: [(timeline.timeStart - this.timeLineStart) * this.minuteFactor + this.gridSize / 2, this.gridSize * index + this.gridSize / 2, (timeline.timeEnd - this.timeLineStart) * this.minuteFactor + this.gridSize / 2, this.gridSize * index + this.gridSize / 2],
+          points: [
+            (timeline.timeStart - this.timeLineStart) * this.minuteFactor + this.timeLineStrokeWidth / 2,
+            this.gridSize * index + this.gridSize / 2,
+            (timeline.timeEnd - this.timeLineStart) * this.minuteFactor - this.timeLineStrokeWidth / 2,
+            this.gridSize * index + this.gridSize / 2
+          ],
           ...this.lineStyle,
           strokeWidth: 10,
           stroke: 'red',

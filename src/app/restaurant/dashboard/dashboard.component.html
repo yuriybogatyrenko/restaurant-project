@@ -1,23 +1,15 @@
 <div>
   <h1>Dashboard</h1>
   <div class="row">
+    <mat-form-field class="col-6 mb-5">
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
     <div class="col-6 mb-5">
-      <h2>Рестораны</h2>
-      <div>
-        <div class="card mb-4" *ngFor="let i of [1,2,3]">
-          <div class="card-header">ресторан {{i}}</div>
-          <div class="card-body">Какое то описание ресторана {{i}}</div>
-        </div>
-      </div>
-      <div>
-        <button class="btn btn-primary">+ Добавить ресторан</button>
-      </div>
-    </div>
-    <div class="col-6">
-      <h2>еще какая то инфа по ресторанам</h2>
-    </div>
-    <div class="col-6">
-      <h2>еще другая инфа по заказам</h2>
+      <button class="btn btn-primary" (click)="addReservation($event)">+ Бронировать</button>
     </div>
   </div>
+
+  <app-gantt-timeline-chart [tables]="tables"></app-gantt-timeline-chart>
 </div>

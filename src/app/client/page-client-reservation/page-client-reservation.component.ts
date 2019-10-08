@@ -2,7 +2,6 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as moment from 'moment';
 import {Router} from '@angular/router';
-import {TableSelectorComponent} from '@app/ui/table-selector/table-selector.component';
 
 @Component({
   selector: 'app-page-client-reservation',
@@ -11,8 +10,6 @@ import {TableSelectorComponent} from '@app/ui/table-selector/table-selector.comp
 })
 export class PageClientReservationComponent implements OnInit, AfterViewInit {
   form: FormGroup;
-
-  @ViewChild(TableSelectorComponent, {static: true}) tableSelector: TableSelectorComponent;
 
   timeOptions = [
     {
@@ -74,7 +71,6 @@ export class PageClientReservationComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.tableSelector.selectTable();
   }
 
 }

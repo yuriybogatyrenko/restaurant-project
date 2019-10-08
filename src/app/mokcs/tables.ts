@@ -29,12 +29,7 @@ const tableDefault = {
   type: RestaurantTableTypeEnum.POLYGON,
   status: RestaurantTableStatusEnum.DEFAULT,
   _timeline: [
-    ...tableTimeline,
-    {
-      id: 1,
-      timeStart: 14 * 60,
-      timeEnd: 24 * 60
-    },
+    ...tableTimeline
   ]
 };
 
@@ -58,8 +53,13 @@ export const tables: IRestaurantTable[] = [
       ...tableTimeline,
       {
         id: 1,
-        timeStart: 14 * 60,
-        timeEnd: 24 * 60
+        timeStart: 13 * 60,
+        timeEnd: 15 * 60
+      },
+      {
+        id: 1,
+        timeStart: 15.5 * 60,
+        timeEnd: 23 * 60
       },
     ]
   },

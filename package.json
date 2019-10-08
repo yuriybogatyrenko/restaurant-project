@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "run:osx": "yarnHost=$(ipconfig getifaddr en1) && yarn start --host $yarnHost",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

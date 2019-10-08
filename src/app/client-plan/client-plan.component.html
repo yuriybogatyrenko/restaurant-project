@@ -1,10 +1,10 @@
-<div class="d-flex flex-column fw-height-100-vh">
+<div class="d-flex flex-column fw-height-percent-100">
   <div class="popup-header fw-color-white d-flex justify-content-between align-items-center mb-3">
-    <div class="flex-grow-1 flex-shrink-0">
+    <div class="flex-grow-1 flex-shrink-0 fw-flex-basis-0">
       <button mat-dialog-close class="icon icon-close"></button>
     </div>
     <div class="flex-grow-1 text-center flex-shrink-0">Выберите столик</div>
-    <div class="flex-grow-1 flex-shrink-0">&nbsp;</div>
+    <div class="flex-grow-1 flex-shrink-0 fw-flex-basis-0">&nbsp;</div>
   </div>
   <div id="client-map" class="flex-grow-1">
     <app-client-map class="d-block" [tables]="tables$ | async"
