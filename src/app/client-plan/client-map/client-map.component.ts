@@ -63,10 +63,17 @@ export class ClientMapComponent implements OnInit {
   }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.init();
+    }, 500);
+  }
+
+  init() {
     const _self = this;
+
     this.stage = new Konva.Stage({
       draggable: true,
-      dragBoundFunc: function (pos) {
+      dragBoundFunc: function(pos) {
         let x: number;
         let y: number;
         if (_self.scale > 1) {
@@ -171,14 +178,18 @@ export class ClientMapComponent implements OnInit {
 
     this.tablesLayer.on('click tap', (e) => {
       this.preview.emit(this.tables.find(table => table.id.toString() === e.target.parent.id()));
-      if (this.selectedTable) this.setTableInactive(this.selectedTable.id);
+      if (this.selectedTable) {
+        this.setTableInactive(this.selectedTable.id);
+      }
       this.setTableActive(e.target.parent.id());
       this.stage.draw();
     });
   }
 
   setTableActive(id: string) {
-    if (!this.tables.find(table => table.id.toString() === id && table.status !== RestaurantTableStatusEnum.BLOCKED)) return;
+    if (!this.tables.find(table => table.id.toString() === id && table.status !== RestaurantTableStatusEnum.BLOCKED)) {
+      return;
+    }
     this._setTableStyle(id, RestaurantTableStatusEnum.ACTIVE);
   }
 
@@ -198,7 +209,7 @@ export class ClientMapComponent implements OnInit {
       this.stage.findOne('#text-' + id).attrs = {
         ...this.stage.findOne('#text-' + id).attrs,
         ...this.style[type].text
-      }
+      };
     }
   }
 

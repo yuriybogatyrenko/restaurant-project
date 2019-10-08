@@ -1,5 +1,5 @@
 <div class="d-flex flex-column fw-height-percent-100">
-  <div class="popup-header fw-color-white d-flex justify-content-between align-items-center mb-3">
+  <div class="popup-header fw-color-white d-flex justify-content-between align-items-center mb-3 fw-flex-shrink-0">
     <div class="flex-grow-1 flex-shrink-0 fw-flex-basis-0">
       <button mat-dialog-close class="icon icon-close"></button>
     </div>
@@ -11,14 +11,17 @@
                     [selectedTable]="selectedTable"
                     (preview)="onPreview($event)"></app-client-map>
   </div>
-  <div class="pl-2 pr-2 pb-2 text-center mt-3" [hidden]="!selectedTable">
-    <div class="mb-3">{{selectedTable?.number}} столик
+  <div class="pl-2 pr-2 pb-2 text-center mt-3 fw-flex-shrink-0">
+    <div class="mb-3" [ngClass]="{'fw-opacity-0': !selectedTable}">
+      {{selectedTable?.number}} столик
       <span class="fw-color-gray">
         макс. {{selectedTable?.count}} человека
       </span>
     </div>
     <div>
-      <button type="button" class="col btn btn-primary btn-lg" [mat-dialog-close]="selectedTable">Выбрать</button>
+      <button type="button"
+              [disabled]="!selectedTable"
+              class="col btn btn-primary btn-lg" [mat-dialog-close]="selectedTable">Выбрать</button>
     </div>
   </div>
 </div>
