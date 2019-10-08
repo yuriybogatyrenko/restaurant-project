@@ -201,7 +201,8 @@ export class ClientMapComponent implements OnInit {
     if (this.stage.findOne('#table-' + id)) {
       this.stage.findOne('#table-' + id).attrs = {
         ...this.stage.findOne('#table-' + id).attrs,
-        ...this.style[type].table
+        ...this.style[type].table,
+        strokeWidth: this.style[type].table.strokeWidth * this.mapScale
       };
     }
 
