@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {tables} from '@app/mokcs/tables';
 import {MatDialog} from '@angular/material';
 import {PopupRestaurantAddReservationComponent} from '@app/restaurant/popups/dashboard/popup-restaurant-add-reservation/popup-restaurant-add-reservation.component';
+import {IReservation} from '@interfaces/reservation.interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,6 +24,15 @@ export class DashboardComponent implements OnInit {
     this._matDialog.open(PopupRestaurantAddReservationComponent, {
       data: {
         tables: this.tables
+      }
+    });
+  }
+
+  onTableSelect(reservation: IReservation) {
+    this._matDialog.open(PopupRestaurantAddReservationComponent, {
+      data: {
+        tables: this.tables,
+        reservation
       }
     });
   }

@@ -1,35 +1,54 @@
-<form [formGroup]="form">
-  <div class="row">
-    <mat-form-field class="col-12">
-      <mat-label>Номер стола</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let table of data.tables" [value]="table">
-          {{table.number}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field class="col-12">
-      <input matInput
-             formControlName="timeStart"
-             type="text"
-             required
-             placeholder="Время начала бронирования">
-    </mat-form-field>
-    <mat-form-field class="col-12">
-      <input matInput
-             formControlName="timeEnd"
-             type="text"
-             required
-             placeholder="Время окончания бронирования">
-    </mat-form-field>
-    <mat-form-field class="col-12">
-      <input matInput [matDatepicker]="picker" placeholder="Выберите дату">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <div class="row">
+      <mat-form-field class="col-12">
+        <mat-label>Номер стола</mat-label>
+        <mat-select formControlName="table">
+          <mat-option *ngFor="let table of data.tables" [value]="table.id">
+            {{table.number}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-12">
+        <input matInput
+               formControlName="name"
+               type="text"
+               required
+               placeholder="Имя клиента">
+      </mat-form-field>
+      <mat-form-field class="col-12">
+        <input matInput
+               formControlName="phone"
+               type="text"
+               required
+               placeholder="телефон клиента">
+      </mat-form-field>
+      <div class="col-12">
+        <ui-guests-selector formControlName="guestsCount"></ui-guests-selector>
+      </div>
+      <mat-form-field class="col-12">
+        <input matInput
+               formControlName="timeStart"
+               type="text"
+               required
+               placeholder="Время начала бронирования">
+      </mat-form-field>
+      <mat-form-field class="col-12">
+        <input matInput
+               formControlName="timeEnd"
+               type="text"
+               required
+               placeholder="Время окончания бронирования">
+      </mat-form-field>
+      <mat-form-field class="col-12">
+        <input formControlName="date" matInput [matDatepicker]="picker" placeholder="Выберите дату">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
 
-    <div class="col-12">
-      <button class="btn btn-primary">Бронировать</button>
+      <div class="col-12">
+        <button class="btn btn-primary">Бронировать</button>
+      </div>
     </div>
-  </div>
-</form>
+  </form>
+</mat-dialog-content>

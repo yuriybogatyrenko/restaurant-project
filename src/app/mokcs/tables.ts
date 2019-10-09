@@ -1,15 +1,20 @@
 import {
   IRestaurantTable,
-  IRestaurantTableTimeline,
   RestaurantTableStatusEnum,
   RestaurantTableTypeEnum
 } from '@interfaces/restaurant-table.interface';
+import {IReservation} from '@interfaces/reservation.interface';
 
-export const tableTimeline: IRestaurantTableTimeline[] = [
+export const tableTimeline: IReservation[] = [
   {
     id: 1,
     timeStart: 9 * 60,
-    timeEnd: 12 * 60
+    timeEnd: 12 * 60,
+    name: 'Петр',
+    tableId: 5,
+    date: '02/21/1989',
+    guestsCount: 5,
+    phone: '12312313123123'
   },
 ];
 

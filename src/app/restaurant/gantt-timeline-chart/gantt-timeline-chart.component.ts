@@ -22,8 +22,8 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
 
   timeLineStart: number = 8 * 60;
   timeLineEnd: number = 24 * 60;
-  timeLineStep: number = 60;
-  gridSize: number = 40;
+  timeLineStep = 60;
+  gridSize = 40;
   minuteFactor: number = this.gridSize / this.timeLineStep;
   timeLineStrokeWidth = 10;
 
@@ -136,6 +136,10 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
           strokeWidth: 10,
           stroke: 'red',
           lineCap: 'round'
+        });
+
+        _timeline.on('click tap', (e) => {
+          this.tableSelect.emit(timeline);
         });
 
         timelineLayer.add(_timeline);

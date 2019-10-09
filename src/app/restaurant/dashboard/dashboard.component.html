@@ -7,9 +7,9 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <div class="col-6 mb-5">
-      <button class="btn btn-primary" (click)="addReservation($event)">+ Бронировать</button>
+      <button class="btn btn-primary" (click)="addReservation($event)">Бронировать</button>
     </div>
   </div>
 
-  <app-gantt-timeline-chart [tables]="tables"></app-gantt-timeline-chart>
+  <app-gantt-timeline-chart (tableSelect)="onTableSelect($event)" [tables]="tables"></app-gantt-timeline-chart>
 </div>
