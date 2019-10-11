@@ -2,6 +2,30 @@
   <form [formGroup]="form">
     <div class="row">
       <mat-form-field class="col-12">
+        <input formControlName="date" readonly matInput [matDatepicker]="picker" placeholder="Выберите дату">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker disabled #picker></mat-datepicker>
+      </mat-form-field>
+      <div class="col-12">
+        <ui-guests-selector formControlName="guestsCount"></ui-guests-selector>
+      </div>
+      <mat-form-field class="col-12 col-sm-6">
+        <mat-label>Начало бронирования</mat-label>
+        <mat-select formControlName="timeStart">
+          <mat-option *ngFor="let table of data.tables" [value]="table.id">
+            {{table.number}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-12 col-sm-6">
+        <mat-label>Продолжительность брони</mat-label>
+        <mat-select formControlName="duration">
+          <mat-option *ngFor="let table of data.tables" [value]="table.id">
+            {{table.number}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-12">
         <mat-label>Номер стола</mat-label>
         <mat-select formControlName="table">
           <mat-option *ngFor="let table of data.tables" [value]="table.id">
@@ -9,6 +33,9 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+      <div class="col-12 mb-3">
+        <p><button (click)="openTableMap($event)" class="btn btn-secondary btn-sm">Показать карту</button></p>
+      </div>
       <mat-form-field class="col-12">
         <input matInput
                formControlName="name"
@@ -22,28 +49,6 @@
                type="text"
                required
                placeholder="телефон клиента">
-      </mat-form-field>
-      <div class="col-12">
-        <ui-guests-selector formControlName="guestsCount"></ui-guests-selector>
-      </div>
-      <mat-form-field class="col-12">
-        <input matInput
-               formControlName="timeStart"
-               type="text"
-               required
-               placeholder="Время начала бронирования">
-      </mat-form-field>
-      <mat-form-field class="col-12">
-        <input matInput
-               formControlName="timeEnd"
-               type="text"
-               required
-               placeholder="Время окончания бронирования">
-      </mat-form-field>
-      <mat-form-field class="col-12">
-        <input formControlName="date" matInput [matDatepicker]="picker" placeholder="Выберите дату">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
       <div class="col-12">

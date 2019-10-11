@@ -4,6 +4,7 @@ import {PopupRestaurantAddReservationComponent} from './popup-restaurant-add-res
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatDatepickerModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/material';
 import {GuestsSelectorModule} from '@app/ui/guests-selector/guests-selector.module';
+import {TableSelectorModule} from '@app/ui/table-selector/table-selector.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import {GuestsSelectorModule} from '@app/ui/guests-selector/guests-selector.modu
     MatDatepickerModule,
     MatInputModule,
     MatDialogModule,
-    GuestsSelectorModule
+    GuestsSelectorModule,
+    TableSelectorModule
   ]
 })
 export class PopupRestaurantAddReservationModule {

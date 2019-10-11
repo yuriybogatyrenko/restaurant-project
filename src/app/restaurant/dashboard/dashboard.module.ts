@@ -5,6 +5,7 @@ import {DashboardComponent} from './dashboard.component';
 import {GanttTimelineChartModule} from '@app/restaurant/gantt-timeline-chart/gantt-timeline-chart.module';
 import {PopupRestaurantAddReservationModule} from '@app/restaurant/popups/dashboard/popup-restaurant-add-reservation/popup-restaurant-add-reservation.module';
 import {MatInputModule} from '@angular/material';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import {MatInputModule} from '@angular/material';
     DashboardRouting,
     GanttTimelineChartModule,
     PopupRestaurantAddReservationModule,
-    MatInputModule
+    MatInputModule,
+    ReactiveFormsModule
   ]
 })
 export class DashboardModule {

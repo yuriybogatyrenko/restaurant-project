@@ -3,6 +3,7 @@ import {tables} from '@app/mokcs/tables';
 import {MatDialog} from '@angular/material';
 import {PopupRestaurantAddReservationComponent} from '@app/restaurant/popups/dashboard/popup-restaurant-add-reservation/popup-restaurant-add-reservation.component';
 import {IReservation} from '@interfaces/reservation.interface';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,11 +12,17 @@ import {IReservation} from '@interfaces/reservation.interface';
 })
 export class DashboardComponent implements OnInit {
   tables = tables;
+  form: FormGroup;
 
-  constructor(private _matDialog: MatDialog) {
+  constructor(private _matDialog: MatDialog,
+              private _fb: FormBuilder) {
   }
 
   ngOnInit() {
+    console.log(new Date());
+    this.form = this._fb.group({
+      date: [new Date().toISOString()]
+    });
   }
 
   addReservation(e: Event) {
@@ -23,7 +30,8 @@ export class DashboardComponent implements OnInit {
 
     this._matDialog.open(PopupRestaurantAddReservationComponent, {
       data: {
-        tables: this.tables
+        tables: this.tables,
+        date: this.form.value.date
       }
     });
   }

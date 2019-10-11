@@ -1,15 +1,15 @@
 <div>
   <h1>Dashboard</h1>
-  <div class="row">
+  <form class="row" [formGroup]="form">
     <mat-form-field class="col-6 mb-5">
-      <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+      <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <div class="col-6 mb-5">
-      <button class="btn btn-primary" (click)="addReservation($event)">Бронировать</button>
+      <button type="button" class="btn btn-primary" (click)="addReservation($event)">Бронировать</button>
     </div>
-  </div>
+  </form>
 
   <app-gantt-timeline-chart (tableSelect)="onTableSelect($event)" [tables]="tables"></app-gantt-timeline-chart>
 </div>
