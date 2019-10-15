@@ -18,6 +18,8 @@ import {untilDestroyed} from "ngx-take-until-destroy";
 })
 export class TimeSelectorComponent implements OnInit, OnDestroy {
   @Input() options: any[] = [];
+  @Input() title: string;
+  @Input() titleField = 'title';
 
   changes$ = new Subject<any>();
   touches$ = new Subject<any>();

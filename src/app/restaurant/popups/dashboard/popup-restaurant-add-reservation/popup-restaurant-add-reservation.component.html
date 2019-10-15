@@ -12,16 +12,16 @@
       <mat-form-field class="col-12 col-sm-6">
         <mat-label>Начало бронирования</mat-label>
         <mat-select formControlName="timeStart">
-          <mat-option *ngFor="let table of data.tables" [value]="table.id">
-            {{table.number}}
+          <mat-option *ngFor="let reservation of reservationStart" [value]="reservation.value">
+            {{reservation.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="col-12 col-sm-6">
         <mat-label>Продолжительность брони</mat-label>
         <mat-select formControlName="duration">
-          <mat-option *ngFor="let table of data.tables" [value]="table.id">
-            {{table.number}}
+          <mat-option *ngFor="let reservation of reservationDuration" [value]="reservation.value">
+            {{reservation.title}}
           </mat-option>
         </mat-select>
       </mat-form-field>

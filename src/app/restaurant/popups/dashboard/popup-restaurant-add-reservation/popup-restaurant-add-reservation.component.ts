@@ -5,6 +5,7 @@ import {IRestaurantTable} from '@interfaces/restaurant-table.interface';
 import {IReservation} from '@interfaces/reservation.interface';
 import {ClientPlanComponent} from '@app/client-plan/client-plan.component';
 import {untilDestroyed} from 'ngx-take-until-destroy';
+import {reservationDuration, reservationStart} from '@app/mokcs/tables';
 
 @Component({
   selector: 'app-popup-restaurant-add-reservation',
@@ -13,6 +14,9 @@ import {untilDestroyed} from 'ngx-take-until-destroy';
 })
 export class PopupRestaurantAddReservationComponent implements OnInit, OnDestroy {
   form: FormGroup;
+
+  reservationStart = reservationStart;
+  reservationDuration = reservationDuration;
 
   constructor(private _fb: FormBuilder,
               @Inject(MAT_DIALOG_DATA) public data: {

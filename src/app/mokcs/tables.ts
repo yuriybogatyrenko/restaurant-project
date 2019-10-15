@@ -5,11 +5,38 @@ import {
 } from '@interfaces/restaurant-table.interface';
 import {IReservation} from '@interfaces/reservation.interface';
 
+export const reservationStart = [
+  {title: '16:00', value: 16 * 60},
+  {title: '16:30', value: 16.5 * 60},
+  {title: '17:00', value: 17 * 60},
+  {title: '17:30', value: 17.5 * 60},
+  {title: '18:00', value: 18 * 60},
+  {title: '18:30', value: 18.5 * 60},
+  {title: '19:00', value: 19 * 60},
+  {title: '19:30', value: 19.5 * 60},
+  {title: '20:00', value: 20 * 60},
+  {title: '20:30', value: 20.5 * 60},
+  {title: '21:00', value: 21 * 60},
+  {title: '21:30', value: 21.5 * 60},
+  {title: '22:00', value: 22 * 60},
+  {title: '22:30', value: 22.5 * 60},
+  {title: '23:00', value: 23 * 60},
+  {title: '23:30', value: 23.5 * 60},
+  {title: '24:00', value: 24 * 60},
+];
+
+export const reservationDuration = [
+  {title: '1 час',  shortTitle: '1', value: 1},
+  {title: '2 часа', shortTitle: '2', value: 2},
+  {title: '3 часа', shortTitle: '3', value: 3},
+  {title: '4+ часов', shortTitle: '4+', value: 4},
+];
+
 export const tableTimeline: IReservation[] = [
   {
     id: 1,
-    timeStart: 9 * 60,
-    timeEnd: 12 * 60,
+    timeStart: 17 * 60,
+    timeEnd: 20.5 * 60,
     name: 'Петр',
     tableId: 5,
     date: '02/21/1989',
@@ -58,13 +85,13 @@ export const tables: IRestaurantTable[] = [
       ...tableTimeline,
       {
         id: 1,
-        timeStart: 13 * 60,
-        timeEnd: 15 * 60
+        timeStart: 21 * 60,
+        timeEnd: 22.5 * 60
       },
       {
         id: 1,
-        timeStart: 15.5 * 60,
-        timeEnd: 23 * 60
+        timeStart: 23 * 60,
+        timeEnd: 24 * 60
       },
     ]
   },
@@ -87,7 +114,7 @@ export const tables: IRestaurantTable[] = [
       ...tableTimeline,
       {
         id: 1,
-        timeStart: 14 * 60,
+        timeStart: 21.5 * 60,
         timeEnd: 24 * 60
       },
     ]
@@ -111,7 +138,7 @@ export const tables: IRestaurantTable[] = [
       ...tableTimeline,
       {
         id: 1,
-        timeStart: 14 * 60,
+        timeStart: 21.5 * 60,
         timeEnd: 24 * 60
       },
     ]
@@ -135,7 +162,7 @@ export const tables: IRestaurantTable[] = [
       ...tableTimeline,
       {
         id: 1,
-        timeStart: 14 * 60,
+        timeStart: 21.5 * 60,
         timeEnd: 24 * 60
       },
     ]
@@ -159,7 +186,7 @@ export const tables: IRestaurantTable[] = [
       ...tableTimeline,
       {
         id: 1,
-        timeStart: 14 * 60,
+        timeStart: 21.5 * 60,
         timeEnd: 24 * 60
       },
     ]
@@ -183,7 +210,7 @@ export const tables: IRestaurantTable[] = [
       ...tableTimeline,
       {
         id: 1,
-        timeStart: 14 * 60,
+        timeStart: 21.5 * 60,
         timeEnd: 24 * 60
       },
     ]
@@ -207,7 +234,7 @@ export const tables: IRestaurantTable[] = [
       ...tableTimeline,
       {
         id: 1,
-        timeStart: 14 * 60,
+        timeStart: 21.5 * 60,
         timeEnd: 24 * 60
       },
     ]
@@ -231,7 +258,7 @@ export const tables: IRestaurantTable[] = [
       ...tableTimeline,
       {
         id: 1,
-        timeStart: 14 * 60,
+        timeStart: 21.5 * 60,
         timeEnd: 24 * 60
       },
     ]
@@ -255,7 +282,7 @@ export const tables: IRestaurantTable[] = [
       ...tableTimeline,
       {
         id: 1,
-        timeStart: 14 * 60,
+        timeStart: 21.5 * 60,
         timeEnd: 24 * 60
       },
     ]
@@ -290,7 +317,7 @@ export const tables: IRestaurantTable[] = [
       ...tableTimeline,
       {
         id: 1,
-        timeStart: 14 * 60,
+        timeStart: 21.5 * 60,
         timeEnd: 24 * 60
       },
     ]
@@ -314,7 +341,7 @@ export const tables: IRestaurantTable[] = [
       ...tableTimeline,
       {
         id: 1,
-        timeStart: 14 * 60,
+        timeStart: 21.5 * 60,
         timeEnd: 24 * 60
       },
     ]
@@ -712,7 +739,7 @@ export const tables: IRestaurantTable[] = [
     number: 67,
     position: {
       x: 897,
-      y: 201+23,
+      y: 201 + 23,
       width: 61,
       height: 30,
       rotate: -23.18

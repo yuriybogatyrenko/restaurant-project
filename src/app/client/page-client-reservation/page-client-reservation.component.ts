@@ -2,6 +2,7 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as moment from 'moment';
 import {Router} from '@angular/router';
+import {reservationDuration, reservationStart} from '@app/mokcs/tables';
 
 @Component({
   selector: 'app-page-client-reservation',
@@ -11,40 +12,8 @@ import {Router} from '@angular/router';
 export class PageClientReservationComponent implements OnInit, AfterViewInit {
   form: FormGroup;
 
-  timeOptions = [
-    {
-      value: 1,
-      title: '11:00'
-    },
-    {
-      value: 1,
-      title: '12:00'
-    },
-    {
-      value: 1,
-      title: '13:00'
-    },
-    {
-      value: 1,
-      title: '14:00'
-    },
-    {
-      value: 1,
-      title: '15:00'
-    },
-    {
-      value: 1,
-      title: '16:00'
-    },
-    {
-      value: 1,
-      title: '17:00'
-    },
-    {
-      value: 1,
-      title: '18:00'
-    }
-  ];
+  timeOptions = reservationStart;
+  timeDuration = reservationDuration;
 
   constructor(private _fb: FormBuilder,
               private _router: Router) {
@@ -56,6 +25,7 @@ export class PageClientReservationComponent implements OnInit, AfterViewInit {
       guests: [5, [Validators.required]],
       date: [moment(), Validators.required],
       time: [null, [Validators.required]],
+      duration: [null, [Validators.required]],
       wishes: []
     });
   }

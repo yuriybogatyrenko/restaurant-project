@@ -6,5 +6,6 @@ export interface IReservation {
   date: string;
   timeStart: number;
   timeEnd: number;
+  duration?: number;
   tableId: number;
 }
