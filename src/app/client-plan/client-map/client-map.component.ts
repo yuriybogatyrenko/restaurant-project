@@ -276,6 +276,7 @@ export class ClientMapComponent implements OnInit {
           width: table.position.width * this.mapScale,
           height: table.position.height * this.mapScale,
           ...style,
+          strokeWidth: this.style.default.table.strokeWidth * this.mapScale,
           id: 'table-' + table.id.toString(),
           cornerRadius: 3
         });
@@ -283,6 +284,7 @@ export class ClientMapComponent implements OnInit {
         _table = new Konva.Circle({
           ...this.style.default.table,
           ...style,
+          strokeWidth: this.style.default.table.strokeWidth * this.mapScale,
           id: 'table-' + table.id.toString(),
           radius: table.position.width / 2 * this.mapScale
         });

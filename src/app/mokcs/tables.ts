@@ -36,7 +36,7 @@ export const tableTimeline: IReservation[] = [
   {
     id: 1,
     timeStart: 17 * 60,
-    timeEnd: 20.5 * 60,
+    timeEnd: 20 * 60,
     name: 'Петр',
     tableId: 5,
     date: '02/21/1989',
@@ -85,12 +85,12 @@ export const tables: IRestaurantTable[] = [
       ...tableTimeline,
       {
         id: 1,
-        timeStart: 21 * 60,
+        timeStart: 20 * 60,
         timeEnd: 22.5 * 60
       },
       {
         id: 1,
-        timeStart: 23 * 60,
+        timeStart: 22.5 * 60,
         timeEnd: 24 * 60
       },
     ]

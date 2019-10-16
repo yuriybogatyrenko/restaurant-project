@@ -58,7 +58,8 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
 
   init() {
     this.stage = new Konva.Stage({
-      container: '#timeline-chart'
+      container: '#timeline-chart',
+      draggable: false
     });
 
     this.gridWidth = Math.max(this._elRef.nativeElement.clientWidth / (this.gridSteps + 1), this.defaultGridWidth);
@@ -79,11 +80,13 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
     const gridLayer = new Konva.Layer();
     for (let i = 0; i < (this.gridSteps); i++) {
       let verticalLine = new Konva.Line({
+        preventDefault: false,
         points: [i * this.gridWidth + this.gridWidth, 0, i * this.gridWidth + this.gridWidth, this.stage.height()],
         ...this.lineStyle
       });
 
       let timeTitle = new Konva.Text({
+        preventDefault: false,
         text: this._timeHelper.getTimeFromMinutes(this.timeLineStart + i * this.timeLineStep),
         x: this.gridWidth + this.gridWidth * i + this.gridWidth / 2,
         y: this.gridHeight / 2
@@ -101,6 +104,7 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
         continue;
       }
       let horizontalLine = new Konva.Line({
+        preventDefault: false,
         points: [0, z * this.gridHeight, this.stage.width(), z * this.gridHeight],
         ...this.lineStyle
       });
@@ -116,6 +120,7 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
 
     this.tables.forEach((table, i) => {
       const tableText = new Konva.Text({
+        preventDefault: false,
         text: table.number.toString(),
         x: this.gridWidth / 2,
         y: this.gridHeight / 2 + this.gridHeight * i + this.gridHeight
@@ -127,6 +132,7 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
       });
 
       const tableBackground = new Konva.Circle({
+        preventDefault: false,
         radius: Math.min(this.gridWidth, this.gridHeight) * 0.8 / 2,
         x: this.gridWidth / 2,
         y: this.gridHeight / 2 + this.gridHeight + this.gridHeight * i,
@@ -149,12 +155,13 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
     });
 
     this.tables.forEach((item, index) => {
-      item._timeline.forEach((timeline) => {
+      /*item._timeline.forEach((timeline) => {
         const _timeline = new Konva.Line({
+          preventDefault: false,
           points: [
-            (timeline.timeStart - this.timeLineStart) * this.minuteFactor + this.timeLineStrokeWidth,
+            (timeline.timeStart - this.timeLineStart) * this.minuteFactor + this.timeLineStrokeWidth * 1.1,
             this.gridHeight * index + this.gridHeight / 2,
-            (timeline.timeEnd - this.timeLineStart) * this.minuteFactor - this.timeLineStrokeWidth,
+            (timeline.timeEnd - this.timeLineStart) * this.minuteFactor - this.timeLineStrokeWidth * 1.1,
             this.gridHeight * index + this.gridHeight / 2
           ],
           ...this.lineStyle,
@@ -164,11 +171,12 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
         });
 
         _timeline.on('click tap', (e) => {
+          console.log(e);
           this.tableSelect.emit(timeline);
         });
 
         timelineLayer.add(_timeline);
-      });
+      });*/
     });
 
     this.stage.add(timelineLayer);

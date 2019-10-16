@@ -1,3 +1,18 @@
-<div class="timeline-wrapper">
+<div class="timeline-wrapper position-relative">
   <div id="timeline-chart"></div>
+  <app-timeline-table *ngFor="let table of tables; let i = index"
+                      [table]="table"
+                      [tableIndex]="i"
+                      [style.top.px]="i * gridHeight + gridHeight"
+                      [style.left.px]="gridWidth"
+                      [style.width.px]="gridWidth * gridSteps"
+                      [style.height.px]="gridHeight"
+                      class="d-block">
+    <app-timeline-item *ngFor="let timeline of table._timeline"
+                       (click)="tableSelect.emit(timeline)"
+                       [timeline]="timeline"
+                       [style.height.px]="gridHeight * 0.8"
+                       [gridSettings]="{gridWidth: gridWidth, gridSteps: gridSteps, minuteFactor: minuteFactor, defaultGridWidth: defaultGridWidth}"
+                       class="d-block"></app-timeline-item>
+  </app-timeline-table>
 </div>

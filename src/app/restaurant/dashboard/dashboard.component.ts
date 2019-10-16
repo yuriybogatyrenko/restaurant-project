@@ -19,7 +19,6 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(new Date());
     this.form = this._fb.group({
       date: [new Date().toISOString()]
     });
@@ -32,7 +31,11 @@ export class DashboardComponent implements OnInit {
       data: {
         tables: this.tables,
         date: this.form.value.date
-      }
+      },
+      // width: '100%',
+      // height: '100%',
+      // maxWidth: '100vw',
+      // maxHeight: '100vw'
     });
   }
 
