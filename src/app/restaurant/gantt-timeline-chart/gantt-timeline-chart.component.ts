@@ -3,6 +3,7 @@ import Konva from 'konva';
 import {IRestaurantTable} from '@interfaces/restaurant-table.interface';
 import {AdminRestaurantTablesQuery, AdminRestaurantTablesService} from '@state/admin-restaurant-table';
 import {TimeHelper} from '@app/helpers/time/time.helper';
+import {reservationStart} from '@app/mokcs/tables';
 
 @Component({
   selector: 'app-gantt-timeline-chart',
@@ -12,6 +13,11 @@ import {TimeHelper} from '@app/helpers/time/time.helper';
 export class GanttTimelineChartComponent implements OnInit, OnDestroy {
   @Input() tables: IRestaurantTable[] = [];
   stage: Konva.Stage;
+  containerPadding = 0;
+
+  timelineHeaderItems = reservationStart.filter((item, index) => item.title.indexOf(':00') !== -1 && index !== reservationStart.length - 1);
+
+  stickyLeft = this.containerPadding;
 
   @Output() tableSelect = new EventEmitter();
 
@@ -59,7 +65,7 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
   init() {
     this.stage = new Konva.Stage({
       container: '#timeline-chart',
-      draggable: false
+      draggable: false,
     });
 
     this.gridWidth = Math.max(this._elRef.nativeElement.clientWidth / (this.gridSteps + 1), this.defaultGridWidth);
@@ -71,21 +77,19 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
     this.drawGrid();
     this.drawTables();
 
-    this.drawTimeline();
-
     this.stage.draw();
   }
 
   drawGrid() {
     const gridLayer = new Konva.Layer();
     for (let i = 0; i < (this.gridSteps); i++) {
-      let verticalLine = new Konva.Line({
+      const verticalLine = new Konva.Line({
         preventDefault: false,
         points: [i * this.gridWidth + this.gridWidth, 0, i * this.gridWidth + this.gridWidth, this.stage.height()],
         ...this.lineStyle
       });
 
-      let timeTitle = new Konva.Text({
+      const timeTitle = new Konva.Text({
         preventDefault: false,
         text: this._timeHelper.getTimeFromMinutes(this.timeLineStart + i * this.timeLineStep),
         x: this.gridWidth + this.gridWidth * i + this.gridWidth / 2,
@@ -103,7 +107,7 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
       if (z === 0) {
         continue;
       }
-      let horizontalLine = new Konva.Line({
+      const horizontalLine = new Konva.Line({
         preventDefault: false,
         points: [0, z * this.gridHeight, this.stage.width(), z * this.gridHeight],
         ...this.lineStyle
@@ -146,40 +150,8 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
     this.stage.add(tableLayer);
   }
 
-  drawTimeline() {
-    const timelineLayer = new Konva.Layer({
-      x: this.gridWidth,
-      y: this.gridHeight,
-      width: this.stage.width() - this.gridWidth,
-      height: this.stage.height() - this.gridHeight,
-    });
-
-    this.tables.forEach((item, index) => {
-      /*item._timeline.forEach((timeline) => {
-        const _timeline = new Konva.Line({
-          preventDefault: false,
-          points: [
-            (timeline.timeStart - this.timeLineStart) * this.minuteFactor + this.timeLineStrokeWidth * 1.1,
-            this.gridHeight * index + this.gridHeight / 2,
-            (timeline.timeEnd - this.timeLineStart) * this.minuteFactor - this.timeLineStrokeWidth * 1.1,
-            this.gridHeight * index + this.gridHeight / 2
-          ],
-          ...this.lineStyle,
-          strokeWidth: this.gridHeight * 0.8,
-          stroke: '#333',
-          lineCap: 'round'
-        });
-
-        _timeline.on('click tap', (e) => {
-          console.log(e);
-          this.tableSelect.emit(timeline);
-        });
-
-        timelineLayer.add(_timeline);
-      });*/
-    });
-
-    this.stage.add(timelineLayer);
+  onScroll(e) {
+    this.stickyLeft = -e.target.scrollLeft + this.containerPadding;
   }
 
   ngOnDestroy() {

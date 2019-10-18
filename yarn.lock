@@ -482,6 +482,13 @@
     "@types/source-list-map" "*"
     source-map "^0.6.1"
 
+"@w11k/angular-sticky-things@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@w11k/angular-sticky-things/-/angular-sticky-things-1.1.2.tgz#0d1eecfaccb0d5b1a0cb26101a7487da195aa05f"
+  integrity sha512-wgBU6+lFijlz9zx0S8oyM14jEoLO73VHrO5WhTr4dBqi6dREXiGULfGq4sb1eEguN4lezprjNj9zaqoEfqPnOg==
+  dependencies:
+    tslib "^1.9.0"
+
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.8.5.tgz#51b1c5fe6576a34953bf4b253df9f0d490d9e359"

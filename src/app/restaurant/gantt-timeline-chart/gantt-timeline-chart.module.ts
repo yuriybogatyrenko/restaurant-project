@@ -4,6 +4,7 @@ import {GanttTimelineChartComponent} from './gantt-timeline-chart.component';
 import {MatDatepickerModule, MatDialogModule, MatNativeDateModule} from "@angular/material";
 import { TimelineItemComponent } from './timeline-item/timeline-item.component';
 import { TimelineTableComponent } from './timeline-table/timeline-table.component';
+import {AngularStickyThingsModule} from '@w11k/angular-sticky-things';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { TimelineTableComponent } from './timeline-table/timeline-table.componen
     CommonModule,
     MatDialogModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    AngularStickyThingsModule
   ]
 })
 export class GanttTimelineChartModule {
