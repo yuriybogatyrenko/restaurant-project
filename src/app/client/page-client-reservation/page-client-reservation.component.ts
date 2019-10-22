@@ -25,7 +25,6 @@ export class PageClientReservationComponent implements OnInit, AfterViewInit {
       guests: [5, [Validators.required]],
       date: [moment(), Validators.required],
       time: [null, [Validators.required]],
-      duration: [null, [Validators.required]],
       wishes: []
     });
   }

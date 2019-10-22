@@ -1,11 +1,11 @@
 import {Component, forwardRef, OnDestroy, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {ClientPlanComponent} from '@app/client-plan/client-plan.component';
-import {take} from "rxjs/operators";
-import {IRestaurantTable} from "@interfaces/restaurant-table.interface";
-import {Subject} from "rxjs";
-import {NG_VALUE_ACCESSOR} from "@angular/forms";
-import {untilDestroyed} from "ngx-take-until-destroy";
+import {take} from 'rxjs/operators';
+import {IRestaurantTable} from '@interfaces/restaurant-table.interface';
+import {Subject} from 'rxjs';
+import {NG_VALUE_ACCESSOR} from '@angular/forms';
+import {untilDestroyed} from 'ngx-take-until-destroy';
 
 @Component({
   // tslint:disable-next-line
@@ -26,6 +26,7 @@ export class TableSelectorComponent implements OnInit, OnDestroy {
   touches$ = new Subject();
   disabled: boolean;
 
+  anyTableSelected = false;
   state: IRestaurantTable;
 
   constructor(private _matDialog: MatDialog) {
@@ -45,7 +46,10 @@ export class TableSelectorComponent implements OnInit, OnDestroy {
       .beforeClosed()
       .pipe(take(1))
       .subscribe((table: IRestaurantTable) => {
-        if (!table) return;
+        if (!table) {
+          return;
+        }
+        this.anyTableSelected = false;
         this.writeValue(table);
       });
   }
@@ -76,7 +80,8 @@ export class TableSelectorComponent implements OnInit, OnDestroy {
     this.changes$.next(rawValue);
   }
 
-  deleteSelectedTable() {
+  deleteSelectedTable(e: Event) {
+    e.preventDefault();
     this.updateValue(null);
   }
 

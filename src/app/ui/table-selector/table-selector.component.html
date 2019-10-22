@@ -5,17 +5,24 @@
       2 свободно
     </div>
   </div>
-  <div class="d-flex align-items-center justify-content-between" *ngIf="!state">
-    <div class="fw-fz-15">Любой</div>
-    <div>
-      <button type="button" class="btn btn-secondary" (click)="selectTable($event)">Выбрать</button>
+  <div class="row" *ngIf="!state">
+    <div class="col-6 pr-1">
+      <button (click)="selectTable($event)" class="table-select__button">Указать на карте</button>
+    </div>
+    <div class="col-6 pl-1">
+      <div>
+        <button type="button"
+                class="table-select__button"
+                [ngClass]="{'active': anyTableSelected}"
+                (click)="anyTableSelected = true">Выбрать</button>
+      </div>
     </div>
   </div>
   <div class="d-flex align-items-center justify-content-between" *ngIf="state">
-    <div class="fw-fz-15">{{state.number}}</div>
-    <div>
-      <button type="button" class="btn btn-secondary mr-2" (click)="selectTable($event)">Изменить</button>
-      <button type="button" class="btn btn-secondary" (click)="deleteSelectedTable()">
+    <div class="fw-fz-15">{{state.number}} столик</div>
+    <div class="d-flex">
+      <button type="button" class="table-select__button table-select__button--black-text mr-2 pl-3 pr-3" (click)="selectTable($event)">Изменить</button>
+      <button type="button" class="table-select__button table-select__button--black-text pl-3 pr-3" (click)="deleteSelectedTable($event)">
         <img src="./assets/icons/icon-trash.svg" alt="">
       </button>
     </div>
