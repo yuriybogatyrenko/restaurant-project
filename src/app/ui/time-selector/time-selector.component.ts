@@ -38,7 +38,7 @@ export class TimeSelectorComponent implements OnInit, OnDestroy {
   }
 
   updateValue(val) {
-    if (val === this.state) return;
+    if (val === this.state || val.disabled) return;
     this.writeValue(val);
   }
 

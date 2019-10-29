@@ -38,8 +38,8 @@ export class ClientMapComponent implements OnInit {
     },
     selected: {
       table: {
-        strokeWidth: 5,
-        stroke: '#cccccc',
+        strokeWidth: 1,
+        stroke: '#333',
         fill: '#1EC025'
       },
       text: {
@@ -278,7 +278,7 @@ export class ClientMapComponent implements OnInit {
           ...style,
           strokeWidth: this.style.default.table.strokeWidth * this.mapScale,
           id: 'table-' + table.id.toString(),
-          cornerRadius: 3
+          cornerRadius: 3 * this.mapScale
         });
       } else if (table.type === RestaurantTableTypeEnum.ROUND) {
         _table = new Konva.Circle({
@@ -331,7 +331,7 @@ export class ClientMapComponent implements OnInit {
 
     _info.offset({
       x: _info.width() / 2,
-      y: _info.height() / 2,
+      y: _info.height() / 2 - 1 * this.mapScale,
     });
 
     if (!!_table) {

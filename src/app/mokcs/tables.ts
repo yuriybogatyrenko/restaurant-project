@@ -1,8 +1,4 @@
-import {
-  IRestaurantTable,
-  RestaurantTableStatusEnum,
-  RestaurantTableTypeEnum
-} from '@interfaces/restaurant-table.interface';
+import {IRestaurantTable, RestaurantTableStatusEnum, RestaurantTableTypeEnum} from '@interfaces/restaurant-table.interface';
 import {IReservation} from '@interfaces/reservation.interface';
 
 export const reservationStart = [
@@ -20,13 +16,13 @@ export const reservationStart = [
   {title: '21:30', value: 21.5 * 60},
   {title: '22:00', value: 22 * 60},
   {title: '22:30', value: 22.5 * 60},
-  {title: '23:00', value: 23 * 60},
-  {title: '23:30', value: 23.5 * 60},
-  {title: '24:00', value: 24 * 60},
+  {title: '23:00', value: 23 * 60, disabled: true},
+  {title: '23:30', value: 23.5 * 60, disabled: true},
+  {title: '24:00', value: 24 * 60, disabled: true},
 ];
 
 export const reservationDuration = [
-  {title: '1 час',  shortTitle: '1', value: 1},
+  {title: '1 час', shortTitle: '1', value: 1},
   {title: '2 часа', shortTitle: '2', value: 2},
   {title: '3 часа', shortTitle: '3', value: 3},
   {title: '4+ часов', shortTitle: '4+', value: 4},
@@ -355,7 +351,8 @@ export const tables: IRestaurantTable[] = [
       width: 30,
       height: 59,
       rotate: -8.2
-    }
+    },
+    status: RestaurantTableStatusEnum.BLOCKED
   },
   {
     ...tableDefault,

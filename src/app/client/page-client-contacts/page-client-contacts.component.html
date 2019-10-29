@@ -1,5 +1,5 @@
 <div>
-  <app-client-header title="Заполните данные"></app-client-header>
+  <app-client-header class="client-header d-block" title="Заполните данные"></app-client-header>
 
   <form [formGroup]="form" (ngSubmit)="submit($event)">
     <div class="row">
@@ -11,7 +11,7 @@
     <div class="row">
       <label class="form-group col">
         <span class="figure-caption">Телефон</span>
-        <input type="text" class="col form-control" formControlName="phone">
+        <input type="tel" class="col form-control" formControlName="phone">
       </label>
     </div>
     <div class="row">
