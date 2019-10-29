@@ -1,15 +1,27 @@
 .btn
   font-size: 17px
+  box-shadow: none !important
 
   &-secondary
     background-color: #F0F0F0
     border: none
     color: #000000
 
+    &:active, &:focus, &:hover
+      background-color: #F0F0F0
+      border: none
+
   &-primary
     background-color: #1EC025
     border: none
-    padding: 13px
+
+    &:active, &:focus, &:hover
+      background-color: #1EC025
+      border: none
 
     &[disabled]
       background-color: #F0F0F0
+
+  &.btn-lg
+    padding: 13px
+    font-weight: 500

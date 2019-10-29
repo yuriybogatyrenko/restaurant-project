@@ -11,7 +11,7 @@
     <div class="row">
       <label class="form-group col">
         <span class="figure-caption">Телефон</span>
-        <input type="tel" class="col form-control" formControlName="phone">
+        <input type="tel" class="col form-control" prefix="+7 " mask="(000)-000-00-00" formControlName="phone">
       </label>
     </div>
     <div class="row">
@@ -23,7 +23,7 @@
     </div>
     <div class="row pt-2">
       <div class="form-group col">
-        <button class="btn btn-primary col" [disabled]="form.invalid">Продолжить</button>
+        <button class="btn btn-primary col btn-lg" [disabled]="form.invalid">Продолжить</button>
       </div>
     </div>
   </form>

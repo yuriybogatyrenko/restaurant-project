@@ -35,6 +35,7 @@
     "konva": "^4.0.4",
     "momentjs": "^2.0.0",
     "ng2-konva": "^6.0.0",
+    "ngx-mask": "^8.1.5",
     "ngx-moment": "^3.4.0",
     "ngx-take-until-destroy": "^5.4.0",
     "rxjs": "~6.5.2",
