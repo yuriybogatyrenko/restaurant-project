@@ -34,7 +34,8 @@
       <app-timeline-item *ngFor="let timeline of table._timeline"
                          (click)="tableSelect.emit(timeline)"
                          [timeline]="timeline"
-                         [style.height.px]="gridHeight * 0.8"
+                         [ngClass]="{canceled: timeline.status === 'CANCELED', pending: timeline.status === 'PENDING'}"
+                         [style.height.px]="gridHeight * 0.85"
                          [gridSettings]="{gridWidth: gridWidth, gridSteps: gridSteps, minuteFactor: minuteFactor, defaultGridWidth: defaultGridWidth}"
                          class="d-block"></app-timeline-item>
     </app-timeline-table>

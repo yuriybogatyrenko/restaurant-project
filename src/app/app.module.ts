@@ -7,9 +7,10 @@ import {RouterModule} from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AkitaNgDevtools} from '@datorama/akita-ngdevtools';
 import {environment} from '@env/environment';
-import {HttpClientModule} from '@angular/common/http';
-import {UiNotificationModule} from "@app/ui/ui-notification/ui-notification.module";
-import {KitOverlayModule} from "@ngx-kit/core";
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {UiNotificationModule} from '@app/ui/ui-notification/ui-notification.module';
+import {KitOverlayModule} from '@ngx-kit/core';
+import {ApiUrlInterceptor} from '@app/interceptors/api-url.interceptor';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,13 @@ import {KitOverlayModule} from "@ngx-kit/core";
     UiNotificationModule.forRoot(),
     KitOverlayModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiUrlInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

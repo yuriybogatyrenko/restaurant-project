@@ -10,7 +10,7 @@ import {DateSelectorDayPipe} from "@app/ui/date-selector/date-selector.pipe";
     DateSelectorComponent,
     DateSelectorDayPipe
   ],
-  exports: [DateSelectorComponent],
+  exports: [DateSelectorComponent, DateSelectorDayPipe],
   imports: [
     CommonModule,
     MomentModule

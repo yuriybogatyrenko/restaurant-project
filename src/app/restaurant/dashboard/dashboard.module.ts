@@ -6,6 +6,8 @@ import {GanttTimelineChartModule} from '@app/restaurant/gantt-timeline-chart/gan
 import {PopupRestaurantAddReservationModule} from '@app/restaurant/popups/dashboard/popup-restaurant-add-reservation/popup-restaurant-add-reservation.module';
 import {MatInputModule} from '@angular/material';
 import {ReactiveFormsModule} from '@angular/forms';
+import {MomentModule} from 'ngx-moment';
+import {DateSelectorModule} from '@app/ui/date-selector/date-selector.module';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import {ReactiveFormsModule} from '@angular/forms';
     GanttTimelineChartModule,
     PopupRestaurantAddReservationModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MomentModule,
+    DateSelectorModule
   ]
 })
 export class DashboardModule {

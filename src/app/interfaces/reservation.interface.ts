@@ -8,4 +8,5 @@ export interface IReservation {
   timeEnd: number;
   duration?: number;
   tableId: number;
+  status: 'ACTIVE' | 'PENDING' | 'CANCELED';
 }

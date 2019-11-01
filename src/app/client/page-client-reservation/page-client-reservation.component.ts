@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import * as moment from 'moment';
 import {Router} from '@angular/router';
 import {reservationDuration, reservationStart} from '@app/mokcs/tables';
+import {ReservationService} from '@app/_services/reservation/reservation.service';
 
 @Component({
   selector: 'app-page-client-reservation',
@@ -13,13 +14,15 @@ export class PageClientReservationComponent implements OnInit, AfterViewInit {
   form: FormGroup;
 
   timeOptions = reservationStart;
-  timeDuration = reservationDuration;
 
   constructor(private _fb: FormBuilder,
-              private _router: Router) {
+              private _router: Router,
+              private _reservationS: ReservationService) {
   }
 
   ngOnInit() {
+    this._reservationS.getReservationDays().subscribe();
+    this._reservationS.getReservationTime('2006-01-01').subscribe();
     this.form = this._fb.group({
       table: [],
       guests: [5, [Validators.required]],

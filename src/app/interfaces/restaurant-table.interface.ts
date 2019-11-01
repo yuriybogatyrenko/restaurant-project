@@ -18,14 +18,16 @@ export interface IRestaurantTable {
     height: number,
     rotate: number
   };
-  status: RestaurantTableStatusEnum,
-  _timeline?: IRestaurantTableTimeline[]
+  status: RestaurantTableStatusEnum;
+  _timeline?: IRestaurantTableTimeline[];
 }
 
 export interface IRestaurantTableTimeline {
-  id: number,
-  timeStart: number,
-  timeEnd: number,
+  id: number;
+  timeStart: number;
+  timeEnd: number;
+  guestsCount?: number;
+  status?: string;
 }
 
 export enum RestaurantTableStatusEnum {

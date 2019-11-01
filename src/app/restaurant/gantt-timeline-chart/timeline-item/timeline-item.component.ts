@@ -1,9 +1,14 @@
 import {Component, ElementRef, Input, OnInit, Renderer2} from '@angular/core';
 import {IRestaurantTableTimeline} from '@interfaces/restaurant-table.interface';
+import {IReservation} from '@interfaces/reservation.interface';
 
 @Component({
   selector: 'app-timeline-item',
-  template: '',
+  template: `<div class="d-flex align-items-center">
+    <img src="./assets/icons/icon-timeline-person.svg" alt="">
+    <span class="fw-fz-11 fw-color-white ml-1">{{timeline.guestsCount}}</span>
+  </div>
+  `,
   styleUrls: ['./timeline-item.component.sass']
 })
 export class TimelineItemComponent implements OnInit {

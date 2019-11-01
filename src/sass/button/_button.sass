@@ -25,3 +25,26 @@
   &.btn-lg
     padding: 13px
     font-weight: 500
+
+  &.btn-round
+    width: 60px
+    height: 60px
+    position: relative
+    border-radius: 60px
+
+  &.btn-plus
+    &:after, &:before
+      position: absolute
+      display: block
+      content: ''
+      width: 20px
+      height: 2px
+      background-color: #fff
+      left: 50%
+      top: 50%
+      transform: translate(-50%, -50%)
+
+    &:before
+      height: 20px
+      width: 2px
+

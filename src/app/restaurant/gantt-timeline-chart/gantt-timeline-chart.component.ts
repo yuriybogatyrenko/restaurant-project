@@ -22,7 +22,7 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
   @Output() tableSelect = new EventEmitter();
 
   lineStyle = {
-    stroke: '#000',
+    stroke: '#DBDBDB',
     strokeWidth: 1,
   };
 
@@ -31,9 +31,8 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
   timeLineStep = 60;
 
   gridHeight = 24;
-  gridWidth = 40;
-  defaultGridWidth = 40;
-  timeLineStrokeWidth = 10;
+  gridWidth = 48;
+  defaultGridWidth = 48;
 
   minuteFactor: number = this.gridWidth / this.timeLineStep;
 
@@ -89,6 +88,21 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
         ...this.lineStyle
       });
 
+      const verticalLineHalf = new Konva.Line({
+        preventDefault: false,
+        points: [i * this.gridWidth + this.gridWidth / 2, this.gridHeight, i * this.gridWidth + this.gridWidth / 2, this.stage.height()],
+        ...this.lineStyle
+      });
+
+      const halfBgRect = new Konva.Rect({
+        preventDefault: false,
+        width: this.gridWidth / 2,
+        height: this.stage.height() - this.gridHeight,
+        x: i * this.gridWidth + this.gridWidth,
+        y: this.gridHeight,
+        fill: '#F3F3F3'
+      });
+
       const timeTitle = new Konva.Text({
         preventDefault: false,
         text: this._timeHelper.getTimeFromMinutes(this.timeLineStart + i * this.timeLineStep),
@@ -101,6 +115,9 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
 
       gridLayer.add(timeTitle);
       gridLayer.add(verticalLine);
+
+      gridLayer.add(verticalLineHalf);
+      gridLayer.add(halfBgRect);
     }
 
     for (let z = 0; z < this.tables.length + 1; z++) {

@@ -4,6 +4,7 @@ import {MatDialog} from '@angular/material';
 import {PopupRestaurantAddReservationComponent} from '@app/restaurant/popups/dashboard/popup-restaurant-add-reservation/popup-restaurant-add-reservation.component';
 import {IReservation} from '@interfaces/reservation.interface';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,6 +23,8 @@ export class DashboardComponent implements OnInit {
     this.form = this._fb.group({
       date: [new Date().toISOString()]
     });
+
+    this.form.valueChanges.subscribe(console.log)
   }
 
   addReservation(e: Event) {
@@ -46,6 +49,10 @@ export class DashboardComponent implements OnInit {
         reservation
       }
     });
+  }
+
+  changePickerDay(state: number) {
+    this.form.patchValue({date: moment(this.form.value.date).add(state, 'days').toISOString()});
   }
 
 }

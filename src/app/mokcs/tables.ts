@@ -37,7 +37,8 @@ export const tableTimeline: IReservation[] = [
     tableId: 5,
     date: '02/21/1989',
     guestsCount: 5,
-    phone: '12312313123123'
+    phone: '12312313123123',
+    status: 'ACTIVE'
   },
 ];
 
@@ -82,12 +83,14 @@ export const tables: IRestaurantTable[] = [
       {
         id: 1,
         timeStart: 20 * 60,
-        timeEnd: 22.5 * 60
+        timeEnd: 22.5 * 60,
+        status: 'CANCELED'
       },
       {
         id: 1,
         timeStart: 22.5 * 60,
-        timeEnd: 24 * 60
+        timeEnd: 24 * 60,
+        status: 'PENDING'
       },
     ]
   },
@@ -111,7 +114,7 @@ export const tables: IRestaurantTable[] = [
       {
         id: 1,
         timeStart: 21.5 * 60,
-        timeEnd: 24 * 60
+        timeEnd: 24 * 60,
       },
     ]
   },
