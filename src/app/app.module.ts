@@ -11,6 +11,8 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {UiNotificationModule} from '@app/ui/ui-notification/ui-notification.module';
 import {KitOverlayModule} from '@ngx-kit/core';
 import {ApiUrlInterceptor} from '@app/interceptors/api-url.interceptor';
+import {NgxWebstorageModule} from 'ngx-webstorage';
+import {JwtInterceptor} from '@app/interceptors/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -24,12 +26,18 @@ import {ApiUrlInterceptor} from '@app/interceptors/api-url.interceptor';
     HttpClientModule,
     environment.production ? [] : AkitaNgDevtools.forRoot(),
     UiNotificationModule.forRoot(),
-    KitOverlayModule
+    NgxWebstorageModule.forRoot(),
+    KitOverlayModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiUrlInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
       multi: true
     }
   ],

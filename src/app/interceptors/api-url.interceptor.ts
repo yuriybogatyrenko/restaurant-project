@@ -6,7 +6,7 @@ import {environment} from '@env/environment';
 @Injectable({providedIn: 'root'})
 export class ApiUrlInterceptor implements HttpInterceptor {
 
-  constructor(private http: HttpClient) {
+  constructor() {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

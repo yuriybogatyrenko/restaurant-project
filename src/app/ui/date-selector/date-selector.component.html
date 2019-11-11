@@ -14,9 +14,9 @@
         <td (click)="updateValue(day)" class="text-center" *ngFor="let day of week">
           <span class="circle-selector ml-auto mr-auto"
                 [ngClass]="{
-                  'selected': state && (day | amCalendar: 'DD-MM-YYYY') === (state | amCalendar: 'DD-MM-YYYY'),
-                  'disabled': !(state | amSubtract:1:'days' | amIsBefore:day)
-                }">{{day | amDateFormat:'DD'}}</span>
+                  'selected': state && state.value === day?.value,
+                  'disabled': day?.disabled
+                }">{{day?.title}}</span>
         </td>
       </tr>
     </table>

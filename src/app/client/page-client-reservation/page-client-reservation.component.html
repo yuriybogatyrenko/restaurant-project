@@ -10,7 +10,7 @@
     </div>
     <hr class="gray-separator">
     <div>
-      <ui-date-selector formControlName="date"></ui-date-selector>
+      <ui-date-selector [options]="days" formControlName="date"></ui-date-selector>
     </div>
     <hr class="gray-separator">
     <div>
@@ -18,7 +18,7 @@
     </div>
     <hr class="gray-separator">
     <div>
-      <ui-table-selector formControlName="table"></ui-table-selector>
+      <ui-table-selector [tables]="tables$ | async" formControlName="table"></ui-table-selector>
     </div>
     <hr class="gray-separator">
     <div>

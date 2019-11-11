@@ -4,6 +4,7 @@ import {tables} from '../mokcs/tables';
 import {IRestaurantTable, RestaurantTableStatusEnum} from '@interfaces/restaurant-table.interface';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {UiNotificationService} from '@app/ui/ui-notification/ui-notification.service';
+import {ReservationService} from '@app/_services/reservation/reservation.service';
 
 @Component({
   selector: 'app-client-plan',
@@ -11,18 +12,18 @@ import {UiNotificationService} from '@app/ui/ui-notification/ui-notification.ser
   styleUrls: ['./client-plan.component.sass']
 })
 export class ClientPlanComponent implements OnInit {
-  tables$: BehaviorSubject<IRestaurantTable[]> = new BehaviorSubject([]);
+  tables$: BehaviorSubject<IRestaurantTable[]> = this._reservationS.tables$;
 
   selectedTable: IRestaurantTable;
 
   constructor(private _matDialogRef: MatDialogRef<ClientPlanComponent>,
               private _notificationS: UiNotificationService,
+              private _reservationS: ReservationService,
               @Inject(MAT_DIALOG_DATA) public model: IRestaurantTable) {
   }
 
   ngOnInit() {
     this.selectedTable = this.model;
-    this.tables$.next(tables);
   }
 
   onPreview(table: IRestaurantTable) {

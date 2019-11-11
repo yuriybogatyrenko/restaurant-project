@@ -38,6 +38,7 @@
     "ngx-mask": "^8.1.5",
     "ngx-moment": "^3.4.0",
     "ngx-take-until-destroy": "^5.4.0",
+    "ngx-webstorage": "^4.0.1",
     "rxjs": "~6.5.2",
     "tslib": "^1.9.0",
     "underscore": "^1.9.1",

@@ -1,4 +1,4 @@
-import {Component, forwardRef, OnDestroy, OnInit} from '@angular/core';
+import {Component, forwardRef, Input, OnDestroy, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {ClientPlanComponent} from '@app/client-plan/client-plan.component';
 import {take} from 'rxjs/operators';
@@ -24,7 +24,9 @@ import {untilDestroyed} from 'ngx-take-until-destroy';
 export class TableSelectorComponent implements OnInit, OnDestroy {
   changes$ = new Subject();
   touches$ = new Subject();
-  disabled: boolean;
+  @Input() disabled: boolean;
+
+  @Input() tables: IRestaurantTable[] = [];
 
   anyTableSelected = false;
   state: IRestaurantTable;

@@ -1,4 +1,4 @@
-import {Component, forwardRef, OnDestroy, OnInit} from '@angular/core';
+import {Component, forwardRef, Input, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import * as moment from 'moment';
 import {MomentHelperService} from '@app/_services/moment-helper/moment-helper.service';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
@@ -18,7 +18,7 @@ import {untilDestroyed} from 'ngx-take-until-destroy';
     }
   ]
 })
-export class DateSelectorComponent implements OnInit, OnDestroy {
+export class DateSelectorComponent implements OnInit, OnDestroy, OnChanges {
   calendar: Array<any> = [];
 
   touches$ = new Subject<void>();
@@ -26,12 +26,13 @@ export class DateSelectorComponent implements OnInit, OnDestroy {
 
   state: any;
 
+  @Input() options: { title: string, value: any, disabled: boolean }[] = [];
+
   constructor(private _momentHelperS: MomentHelperService) {
   }
 
   ngOnInit() {
     moment.locale('RU');
-    this.calendar = this._momentHelperS.generateCalendarArray();
   }
 
   registerOnChange(fn: any) {
@@ -47,6 +48,9 @@ export class DateSelectorComponent implements OnInit, OnDestroy {
   }
 
   writeValue(rawValue: any) {
+    if (this.state === rawValue) {
+      return;
+    }
     this.state = rawValue;
     this.changes$.next(rawValue);
   }
@@ -56,5 +60,11 @@ export class DateSelectorComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+  }
+
+  ngOnChanges(e) {
+    if (e.options) {
+      this.calendar = this._momentHelperS.generateCalendarArray(e.options.currentValue);
+    }
   }
 }

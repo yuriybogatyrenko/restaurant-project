@@ -6,57 +6,50 @@ export class MomentHelperService {
   constructor() {
   }
 
-  generateCalendarArray(year?, month?) {
-    let _year, _month;
-    if (!year || !month) {
-      _year = moment().year();
-      _month = moment().month() + 1;
+  generateCalendarArray(dateArray) {
+    if (!dateArray || !dateArray.length) {
+      return [];
     }
 
-    const startDate = moment([_year, _month - 1]);
-    const endDate = moment(startDate).endOf('month');
+    const startDate = moment(dateArray[0].value * 1000);
 
-    const dates = [];
     const weeks = [];
 
     let perWeek = [];
-    const difference = endDate.diff(startDate, 'days');
+    const difference = dateArray.length;
 
-    // make correct table days order
     if (perWeek.length < startDate.weekday()) {
       while (perWeek.length < startDate.weekday()) {
         perWeek.unshift(null);
       }
     }
 
-    perWeek.push(startDate.toDate());
-    let index = 0;
-    let lastWeek = false;
-    while (startDate.add(1, 'days').diff(endDate) < 0) {
-      if (startDate.weekday() !== 0) {
-        perWeek.push(startDate.toDate());
+    for (let i = 0; i < dateArray.length; i++) {
+      if (moment(dateArray[i].value * 1000).weekday() !== 0) {
+        perWeek.push(dateArray[i]);
       } else {
-        if ((startDate.clone().add(7, 'days').month() === (_month - 1))) {
-          weeks.push(perWeek);
-          perWeek = [];
-          perWeek.push(startDate.toDate());
-        } else if (Math.abs(index - difference) > 0) {
-          if (!lastWeek) {
-            weeks.push(perWeek);
-            perWeek = [];
-          }
-          lastWeek = true;
-          perWeek.push(startDate.toDate());
-        }
+        weeks.push(perWeek);
+        perWeek = [];
+        perWeek.push(dateArray[i]);
       }
-      index += 1;
-      if ((lastWeek === true && Math.abs(index - difference) === 0) ||
-        (Math.abs(index - difference) === 0 && perWeek.length === 1)) {
+
+      if (i + 1 === difference || (Math.abs(i - difference) === 0) ||
+        (Math.abs(i - difference) === 0 && perWeek.length === 1)) {
         weeks.push(perWeek);
       }
-      dates.push(startDate.clone().toDate());
     }
-
     return weeks;
+  }
+
+  cutFromToday(array: [{ title: string, value: number, disabled: boolean }], length: number = 14) {
+    array.find((item, index) => {
+      if (moment(item.value * 1000).isSame(moment(), 'day')) {
+        array.splice(0, index);
+        array.splice(length);
+        return true;
+      }
+    });
+
+    return array;
   }
 }

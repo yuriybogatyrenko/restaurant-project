@@ -33,7 +33,7 @@ export interface IRestaurantTableTimeline {
 export enum RestaurantTableStatusEnum {
   BLOCKED = 'blocked',
   ACTIVE = 'selected',
-  DEFAULT = 'default'
+  DEFAULT = 'available'
 }
 
 export enum RestaurantTableTypeEnum {
