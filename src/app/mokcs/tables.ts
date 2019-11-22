@@ -1,7 +1,7 @@
 import {IRestaurantTable, RestaurantTableStatusEnum, RestaurantTableTypeEnum} from '@interfaces/restaurant-table.interface';
-import {IReservation} from '@interfaces/reservation.interface';
+import {IReservation, IReservationTime} from '@interfaces/reservation.interface';
 
-export const reservationStart = [
+export const reservationStart: IReservationTime[] = [
   {title: '16:00', value: 16 * 60},
   {title: '16:30', value: 16.5 * 60},
   {title: '17:00', value: 17 * 60},

@@ -3,12 +3,14 @@ import {HttpClient} from '@angular/common/http';
 import {LocalStorageService} from 'ngx-webstorage';
 import {tap} from 'rxjs/operators';
 import {BehaviorSubject} from 'rxjs';
+import * as moment from 'moment';
 
 export interface LoginResponse {
-  'error': boolean;
-  'token': string;
-  'exp_in': number;
-  'is_admin': boolean;
+  error: boolean;
+  token: string;
+  exp_in: number;
+  is_admin: boolean;
+  expirationTime?: string;
 }
 
 @Injectable({providedIn: 'root'})
@@ -23,7 +25,7 @@ export class SessionService {
     return this.loginRequest(credentials)
       .pipe(
         tap((response: LoginResponse) => {
-          this.localStorage.store('session', response);
+          this.localStorage.store('session', {...response, expirationTime: moment().add(response.exp_in, 'seconds').toISOString()});
           this.session$.next(response);
         })
       );

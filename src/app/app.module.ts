@@ -13,6 +13,7 @@ import {KitOverlayModule} from '@ngx-kit/core';
 import {ApiUrlInterceptor} from '@app/interceptors/api-url.interceptor';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import {JwtInterceptor} from '@app/interceptors/jwt.interceptor';
+import {ErrorInterceptor} from '@app/interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,11 @@ import {JwtInterceptor} from '@app/interceptors/jwt.interceptor';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
       multi: true
     }
   ],

@@ -14,11 +14,11 @@ export class PageClientContactsComponent implements OnInit {
     {
       title: 'Отправить SMS',
       value: 'SMS'
-    },
+    }/*,
     {
       title: 'Связаться с диспетчером',
       value: 'CALL'
-    }
+    }*/
   ];
 
   constructor(private _fb: FormBuilder,

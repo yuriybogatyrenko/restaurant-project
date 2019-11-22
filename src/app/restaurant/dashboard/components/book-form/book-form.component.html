@@ -3,9 +3,6 @@
 
   <form [formGroup]="form" (ngSubmit)="submit($event)">
     <div>
-      <app-restaurant-item></app-restaurant-item>
-    </div>
-    <div>
       <ui-date-selector [options]="days" formControlName="date"></ui-date-selector>
     </div>
     <hr class="gray-separator">
@@ -15,6 +12,17 @@
     <hr class="gray-separator">
     <div>
       <ui-time-selector [title]="'Время'" [options]="timeOptions" formControlName="time"></ui-time-selector>
+    </div>
+    <hr class="gray-separator">
+    <div class="pt-3 pb-3">
+      <div class="caption-medium mb-3">Длительность</div>
+      <div>
+        <mat-select formControlName="duration">
+          <mat-option *ngFor="let duration of reservationDuration" [value]="duration.value">
+            {{duration.title}}
+          </mat-option>
+        </mat-select>
+      </div>
     </div>
     <hr class="gray-separator">
     <div>

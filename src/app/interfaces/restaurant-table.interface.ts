@@ -19,13 +19,13 @@ export interface IRestaurantTable {
     rotate: number
   };
   status: RestaurantTableStatusEnum;
-  _timeline?: IRestaurantTableTimeline[];
+  booking_entries?: IRestaurantTableTimeline[];
 }
 
 export interface IRestaurantTableTimeline {
   id: number;
-  timeStart: number;
-  timeEnd: number;
+  date_start: number;
+  date_end: number;
   guestsCount?: number;
   status?: string;
 }

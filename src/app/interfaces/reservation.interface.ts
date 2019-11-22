@@ -10,3 +10,9 @@ export interface IReservation {
   tableId: number;
   status: 'ACTIVE' | 'PENDING' | 'CANCELED';
 }
+
+export interface IReservationTime {
+  title: string;
+  value: number;
+  disabled?: boolean;
+}

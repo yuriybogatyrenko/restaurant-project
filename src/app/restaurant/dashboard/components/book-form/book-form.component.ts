@@ -1,45 +1,47 @@
-import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {IRestaurantTable, RestaurantTableStatusEnum} from '@interfaces/restaurant-table.interface';
+import {map, take} from 'rxjs/operators';
 import * as moment from 'moment';
-import {Router} from '@angular/router';
 import {ReservationService} from '@app/_services/reservation/reservation.service';
 import {untilDestroyed} from 'ngx-take-until-destroy';
-import {map, take} from 'rxjs/operators';
 import {MomentHelperService} from '@app/_services/moment-helper/moment-helper.service';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {IRestaurantTable, RestaurantTableStatusEnum} from '@interfaces/restaurant-table.interface';
+import {reservationDuration} from '@app/mokcs/tables';
 
 @Component({
-  selector: 'app-page-client-reservation',
-  templateUrl: './page-client-reservation.component.html',
-  styleUrls: ['./page-client-reservation.component.sass']
+  selector: 'app-book-form',
+  templateUrl: './book-form.component.html',
+  styleUrls: ['./book-form.component.sass']
 })
-export class PageClientReservationComponent implements OnInit, AfterViewInit, OnDestroy {
+export class BookFormComponent implements OnInit, OnDestroy {
+  @Input() type: 'CREATE' | 'EDIT' = 'CREATE';
+
   form: FormGroup;
   daysLength = 14;
   timeOptions = [];
   days = [];
   queryDaysMonth = moment();
 
+  reservationDuration = reservationDuration;
+
   tables$: Observable<IRestaurantTable[]> = this._reservationS.tables$
     .pipe(map((items: IRestaurantTable[]) => items.filter(item => item.status !== RestaurantTableStatusEnum.BLOCKED)));
 
-  constructor(private _fb: FormBuilder,
-              private _router: Router,
-              private _momentHelper: MomentHelperService,
-              private _reservationS: ReservationService) {
+  constructor(private fb: FormBuilder,
+              private _reservationS: ReservationService,
+              private _momentHelper: MomentHelperService) {
   }
 
   ngOnInit() {
-    this.form = this._fb.group({
-      table: [{value: null, disabled: true}, [Validators.required]],
-      guests: [5, [Validators.required]],
-      date: [null, Validators.required],
+    this.form = this.fb.group({
+      date: [new Date(), [Validators.required]],
+      guests: [5, [Validators.required, Validators.pattern(/d/)]],
       time: [null, [Validators.required]],
-      wishes: []
+      table: [null, [Validators.required]],
+      wishes: [],
+      duration: [2]
     });
-
-    this.getDays();
 
     this.form.controls.date.valueChanges
       .pipe(untilDestroyed(this))
@@ -69,6 +71,8 @@ export class PageClientReservationComponent implements OnInit, AfterViewInit, On
       .subscribe((e) => {
         setTimeout(() => this.getTables(), 0);
       });
+
+    this.getDays();
   }
 
   getTables() {
@@ -101,17 +105,9 @@ export class PageClientReservationComponent implements OnInit, AfterViewInit, On
 
   submit(e: Event) {
     e.preventDefault();
-
-    if (this.form.invalid) {
-      return;
-    }
-
-    this._router.navigateByUrl('/contacts');
-  }
-
-  ngAfterViewInit() {
   }
 
   ngOnDestroy() {
   }
+
 }

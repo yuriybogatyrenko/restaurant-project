@@ -1,21 +1,21 @@
-import {Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy, OnInit, Output} from '@angular/core';
 import Konva from 'konva';
 import {IRestaurantTable} from '@interfaces/restaurant-table.interface';
 import {AdminRestaurantTablesQuery, AdminRestaurantTablesService} from '@state/admin-restaurant-table';
 import {TimeHelper} from '@app/helpers/time/time.helper';
-import {reservationStart} from '@app/mokcs/tables';
+import {ReservationService} from '@app/_services/reservation/reservation.service';
 
 @Component({
   selector: 'app-gantt-timeline-chart',
   templateUrl: './gantt-timeline-chart.component.html',
   styleUrls: ['./gantt-timeline-chart.component.sass']
 })
-export class GanttTimelineChartComponent implements OnInit, OnDestroy {
+export class GanttTimelineChartComponent implements OnInit, OnDestroy, OnChanges {
   @Input() tables: IRestaurantTable[] = [];
   stage: Konva.Stage;
   containerPadding = 0;
 
-  timelineHeaderItems = reservationStart.filter((item, index) => item.title.indexOf(':00') !== -1 && index !== reservationStart.length - 1);
+  @Input() timelineHeaderItems = [];
 
   stickyLeft = this.containerPadding;
 
@@ -36,7 +36,7 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
 
   minuteFactor: number = this.gridWidth / this.timeLineStep;
 
-  gridSteps = Math.abs(this.timeLineStart - this.timeLineEnd) / this.timeLineStep;
+  gridSteps: number;
 
   resizeTimeout;
 
@@ -51,14 +51,15 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
 
   constructor(private _tableS: AdminRestaurantTablesService,
               private _tableQ: AdminRestaurantTablesQuery,
+              private _reservationS: ReservationService,
               private _timeHelper: TimeHelper,
               private _elRef: ElementRef) {
   }
 
   ngOnInit() {
-    // this.tables = tables || [];
+    this.gridSteps = this.timelineHeaderItems.length;
 
-    this.init();
+    // this.tables = tables || [];
   }
 
   init() {
@@ -105,7 +106,7 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
 
       const timeTitle = new Konva.Text({
         preventDefault: false,
-        text: this._timeHelper.getTimeFromMinutes(this.timeLineStart + i * this.timeLineStep),
+        text: this.timelineHeaderItems[i].title,
         x: this.gridWidth + this.gridWidth * i + this.gridWidth / 2,
         y: this.gridHeight / 2
       });
@@ -169,6 +170,15 @@ export class GanttTimelineChartComponent implements OnInit, OnDestroy {
 
   onScroll(e) {
     this.stickyLeft = -e.target.scrollLeft + this.containerPadding;
+  }
+
+  ngOnChanges(e: any) {
+    if (e.tables || e.timelineHeaderItems) {
+      if (this.stage) {
+        this.stage.destroy();
+      }
+      this.init();
+    }
   }
 
   ngOnDestroy() {

@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-page-registration',
@@ -6,11 +7,13 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./page-registration.component.sass']
 })
 export class PageRegistrationComponent implements OnInit {
+  form: FormGroup;
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
   }
 
   ngOnInit() {
+    this.form = this.fb.group({});
   }
 
 }

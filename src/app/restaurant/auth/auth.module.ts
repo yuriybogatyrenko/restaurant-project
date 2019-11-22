@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {AuthRouting} from './auth.routing';
 import {PageLoginComponent} from './page-login/page-login.component';
 import {PageRegistrationComponent} from './page-registration/page-registration.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import {PageRegistrationComponent} from './page-registration/page-registration.c
   ],
   imports: [
     CommonModule,
-    AuthRouting
+    AuthRouting,
+    ReactiveFormsModule
   ]
 })
 export class AuthModule {

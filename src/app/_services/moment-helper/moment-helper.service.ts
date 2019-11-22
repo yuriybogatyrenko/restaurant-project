@@ -43,8 +43,8 @@ export class MomentHelperService {
 
   cutFromToday(array: [{ title: string, value: number, disabled: boolean }], length: number = 14) {
     array.find((item, index) => {
-      if (moment(item.value * 1000).isSame(moment(), 'day')) {
-        array.splice(0, index);
+      if (moment.utc(item.value * 1000).isSame(moment.utc(), 'day')) {
+        array.splice(0, index - 1);
         array.splice(length);
         return true;
       }

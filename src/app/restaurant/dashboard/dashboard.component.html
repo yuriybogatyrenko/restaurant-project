@@ -18,7 +18,10 @@
     </div>
   </form>
 
-  <app-gantt-timeline-chart (tableSelect)="onTableSelect($event)" [tables]="tables"></app-gantt-timeline-chart>
+  <app-gantt-timeline-chart (tableSelect)="onTableSelect($event)"
+                            *ngIf="timelineHeaderItems.length"
+                            [timelineHeaderItems]="timelineHeaderItems"
+                            [tables]="tables$ | async"></app-gantt-timeline-chart>
 
   <div class="fixed-bottom col text-center pb-2">
     <button type="button" class="btn btn-primary btn-round btn-plus btn-lg" (click)="addReservation($event)"></button>

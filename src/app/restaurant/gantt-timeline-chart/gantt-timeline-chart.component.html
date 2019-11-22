@@ -31,7 +31,7 @@
                         [style.width.px]="gridWidth * gridSteps"
                         [style.height.px]="gridHeight"
                         class="d-block">
-      <app-timeline-item *ngFor="let timeline of table._timeline"
+      <app-timeline-item *ngFor="let timeline of table.booking_entries"
                          (click)="tableSelect.emit(timeline)"
                          [timeline]="timeline"
                          [ngClass]="{canceled: timeline.status === 'CANCELED', pending: timeline.status === 'PENDING'}"
