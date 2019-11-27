@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {IReservation} from '@interfaces/reservation.interface';
 
 @Component({
   selector: 'app-reservation-info',
@@ -7,6 +8,8 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class ReservationInfoComponent implements OnInit {
   @Input() isTotal = false;
+  @Input() reservation: IReservation;
+  @Input() amount = 250;
 
   constructor() {
   }

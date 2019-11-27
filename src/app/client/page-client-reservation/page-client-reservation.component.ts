@@ -8,6 +8,9 @@ import {map, take} from 'rxjs/operators';
 import {MomentHelperService} from '@app/_services/moment-helper/moment-helper.service';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {IRestaurantTable, RestaurantTableStatusEnum} from '@interfaces/restaurant-table.interface';
+import {WebStorage} from 'ngx-webstorage/lib/core/interfaces/webStorage';
+import {LocalStorageService, SessionStorageService} from 'ngx-webstorage';
+import {DEFAULT_GUESTS_NUMBER} from '@app/constants/reservation-form';
 
 @Component({
   selector: 'app-page-client-reservation',
@@ -21,36 +24,39 @@ export class PageClientReservationComponent implements OnInit, AfterViewInit, On
   days = [];
   queryDaysMonth = moment();
 
-  tables$: Observable<IRestaurantTable[]> = this._reservationS.tables$
+  tables$: Observable<IRestaurantTable[]> = this.reservationS.tables$
     .pipe(map((items: IRestaurantTable[]) => items.filter(item => item.status !== RestaurantTableStatusEnum.BLOCKED)));
 
-  constructor(private _fb: FormBuilder,
-              private _router: Router,
-              private _momentHelper: MomentHelperService,
-              private _reservationS: ReservationService) {
+  constructor(private fb: FormBuilder,
+              private router: Router,
+              private momentHelper: MomentHelperService,
+              private reservationS: ReservationService,
+              private sessionStorage: SessionStorageService) {
   }
 
   ngOnInit() {
-    this.form = this._fb.group({
-      table: [{value: null, disabled: true}, [Validators.required]],
-      guests: [5, [Validators.required]],
-      date: [null, Validators.required],
-      time: [null, [Validators.required]],
-      wishes: []
+    const sessionForm = this.sessionStorage.retrieve('client:reservation:form');
+    this.form = this.fb.group({
+      table: [{value: sessionForm ? sessionForm.table : null, disabled: true}, [Validators.required]],
+      guests: [sessionForm ? sessionForm.guests : DEFAULT_GUESTS_NUMBER, [Validators.required]],
+      date: [{value: sessionForm ? sessionForm.date : moment.now()}, Validators.required],
+      time: [sessionForm ? sessionForm.time : null, [Validators.required]],
+      wishes: [sessionForm ? sessionForm.wishes : null]
     });
 
     this.getDays();
 
     this.form.controls.date.valueChanges
       .pipe(untilDestroyed(this))
-      .subscribe(data =>
-        this._reservationS
-          .getReservationTime(moment(data).format('YYYY-MM-DD'))
-          .pipe(take(1))
-          .subscribe((time: any) => {
-            this.timeOptions = time.items;
-            this.getTables();
-          })
+      .subscribe(data => {
+          this.reservationS
+            .getReservationTime(data.dayString)
+            .pipe(take(1))
+            .subscribe((time: any) => {
+              this.timeOptions = time.items;
+              this.getTables();
+            });
+        }
       );
 
     this.form.controls
@@ -76,20 +82,20 @@ export class PageClientReservationComponent implements OnInit, AfterViewInit, On
     if (this.form.value.time) {
       timecode += 'T' + this.form.value.time.title + ':00';
     }
-    this._reservationS.getReservationTables({timecode, num_guests: this.form.value.guests})
+    this.reservationS.getReservationTables({timecode, num_guests: this.form.value.guests})
       .pipe(untilDestroyed(this))
       .subscribe();
   }
 
   getDays() {
-    this._reservationS.getReservationDays(this.queryDaysMonth.format('YYYY-MM'))
+    this.reservationS.getReservationDays(this.queryDaysMonth.format('YYYY-MM'))
       .pipe(
         take(1),
         untilDestroyed(this)
       )
       .subscribe(
         (days: any) => {
-          this.days = this._momentHelper.cutFromToday([...this.days, ...days.items] as any, this.daysLength);
+          this.days = this.momentHelper.cutFromToday([...this.days, ...days.items] as any, this.daysLength);
           this.form.patchValue({date: this.days[0]});
           if (this.days.length < this.daysLength) {
             this.queryDaysMonth.add(1, 'months');
@@ -106,7 +112,11 @@ export class PageClientReservationComponent implements OnInit, AfterViewInit, On
       return;
     }
 
-    this._router.navigateByUrl('/contacts');
+    this.sessionStorage.store('client:reservation:form', {
+      ...this.sessionStorage.retrieve('client:reservation:form'),
+      ...this.form.value
+    });
+    this.router.navigateByUrl('/contacts');
   }
 
   ngAfterViewInit() {

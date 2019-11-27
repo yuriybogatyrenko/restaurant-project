@@ -8,6 +8,7 @@ import {ReservationService} from '@app/_services/reservation/reservation.service
 import {take} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {IRestaurantTable} from '@interfaces/restaurant-table.interface';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,7 +24,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(private _matDialog: MatDialog,
               private _reservationS: ReservationService,
-              private _fb: FormBuilder) {
+              private _fb: FormBuilder,
+              private _router: Router) {
   }
 
   ngOnInit() {
@@ -31,15 +33,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
       date: [new Date().toISOString()]
     });
 
+    this.getReservationTime();
 
     this.getTables(this.form.value.date);
-    this._reservationS.getReservationTime(moment(this.form.value.date).format('YYYY-MM-DD'))
-      .pipe(untilDestroyed(this))
-      .subscribe((items: any) => this.timelineHeaderItems = items.items.filter(item => item.title.indexOf(':00') !== -1));
 
     this.form.controls.date.valueChanges
       .pipe(untilDestroyed(this))
       .subscribe((date) => {
+        this.getReservationTime(date);
         this.getTables(date);
       });
   }
@@ -53,28 +54,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  addReservation(e: Event) {
-    e.preventDefault();
-
-    /*this._matDialog.open(PopupRestaurantAddReservationComponent, {
-      data: {
-        tables: this.tables,
-        date: this.form.value.date
-      },
-      // width: '100%',
-      // height: '100%',
-      // maxWidth: '100vw',
-      // maxHeight: '100vw'
-    });*/
+  getReservationTime(date?: string) {
+    this._reservationS.getReservationTime(moment(date || this.form.value.date).format('YYYY-MM-DD'))
+      .pipe(untilDestroyed(this))
+      .subscribe((items: any) => this.timelineHeaderItems = items.items.filter(item => item.title.indexOf(':00') !== -1));
   }
 
   onTableSelect(reservation: IReservation) {
-    /*this._matDialog.open(PopupRestaurantAddReservationComponent, {
-      data: {
-        tables: this.tables,
-        reservation
-      }
-    });*/
+    this._router.navigateByUrl('/admin/edit/' + reservation.id);
   }
 
   changePickerDay(state: number) {

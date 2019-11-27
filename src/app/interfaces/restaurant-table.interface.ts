@@ -1,9 +1,9 @@
 export interface IRestaurantTable {
-  id: number;
+  id: string;
   uuid?: string;
   title: string;
   number: number;
-  count: number;
+  num_persons?: number;
   gallery: IRestaurantTableGalleryItem[];
   type: RestaurantTableTypeEnum;
   furniture?: {

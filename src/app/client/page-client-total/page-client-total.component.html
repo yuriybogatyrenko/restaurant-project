@@ -13,4 +13,7 @@
 
 <app-reservation-deposit class="mt-4"></app-reservation-deposit>
 
-<app-reservation-info class="d-block mt-3 mb-3" [isTotal]="true"></app-reservation-info>
+<app-reservation-info *ngIf="reservation"
+                      [reservation]="reservation"
+                      class="d-block mt-3 mb-3"
+                      [isTotal]="true"></app-reservation-info>

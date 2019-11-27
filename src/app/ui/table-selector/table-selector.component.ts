@@ -25,6 +25,7 @@ export class TableSelectorComponent implements OnInit, OnDestroy {
   changes$ = new Subject();
   touches$ = new Subject();
   @Input() disabled: boolean;
+  @Input() isAdmin = false;
 
   @Input() tables: IRestaurantTable[] = [];
 
@@ -72,9 +73,13 @@ export class TableSelectorComponent implements OnInit, OnDestroy {
     this.disabled = isDisabled;
   }
 
-  updateValue(value: any) {
-    this.state = value;
-    this.changes$.next(value);
+  updateValue(value: any, isMatSelect = false) {
+    if (isMatSelect) {
+      this.state = this.tables.find(item => item.id === value.value);
+    } else {
+      this.state = value;
+    }
+    this.changes$.next(this.state);
   }
 
   writeValue(rawValue: any) {

@@ -34,6 +34,7 @@
       <app-timeline-item *ngFor="let timeline of table.booking_entries"
                          (click)="tableSelect.emit(timeline)"
                          [timeline]="timeline"
+                         [hoursGrid]="timelineHeaderItems"
                          [ngClass]="{canceled: timeline.status === 'CANCELED', pending: timeline.status === 'PENDING'}"
                          [style.height.px]="gridHeight * 0.85"
                          [gridSettings]="{gridWidth: gridWidth, gridSteps: gridSteps, minuteFactor: minuteFactor, defaultGridWidth: defaultGridWidth}"

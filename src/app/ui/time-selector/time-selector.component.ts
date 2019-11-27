@@ -1,7 +1,7 @@
 import {Component, forwardRef, Input, OnDestroy, OnInit} from '@angular/core';
-import {NG_VALUE_ACCESSOR} from "@angular/forms";
-import {Subject} from "rxjs";
-import {untilDestroyed} from "ngx-take-until-destroy";
+import {NG_VALUE_ACCESSOR} from '@angular/forms';
+import {Subject} from 'rxjs';
+import {untilDestroyed} from 'ngx-take-until-destroy';
 
 @Component({
   // tslint:disable-next-line
@@ -38,7 +38,9 @@ export class TimeSelectorComponent implements OnInit, OnDestroy {
   }
 
   updateValue(val) {
-    if (val === this.state || val.disabled) return;
+    if (val === this.state || val.disabled) {
+      return;
+    }
     this.writeValue(val);
   }
 

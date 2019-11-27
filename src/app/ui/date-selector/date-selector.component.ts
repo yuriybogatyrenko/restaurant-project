@@ -51,12 +51,23 @@ export class DateSelectorComponent implements OnInit, OnDestroy, OnChanges {
     if (this.state === rawValue) {
       return;
     }
-    this.state = rawValue;
-    this.changes$.next(rawValue);
+    // console.log(moment.utc(rawValue).unix());
+    this.state = {
+      ...rawValue,
+      dayString: moment.unix(rawValue.value).format('YYYY-MM-DD')
+    };
+    // this.state = moment.utc(rawValue).unix() * 1000;
+    this.changes$.next(this.state);
+
   }
 
   updateValue(value) {
-    this.writeValue(value);
+    this.state = {
+      ...value,
+      dayString: moment.unix(value.value).format('YYYY-MM-DD')
+    };
+    // this.writeValue(value);
+    this.changes$.next(value);
   }
 
   ngOnDestroy() {
@@ -64,7 +75,12 @@ export class DateSelectorComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges(e) {
     if (e.options) {
-      this.calendar = this._momentHelperS.generateCalendarArray(e.options.currentValue);
+      this.calendar = this._momentHelperS.generateCalendarArray(e.options.currentValue.map(item => {
+        return {
+          ...item,
+          dayString: moment.unix(item.value).format('YYYY-MM-DD')
+        };
+      }));
     }
   }
 }

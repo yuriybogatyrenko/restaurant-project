@@ -4,8 +4,10 @@
       Дата
     </div>
     <div class="fw-color-gray fw-fz-15">
-      <span [innerHTML]="state | dateSelectorDay"></span>
-      {{state | amLocale: 'ru' | amDateFormat: 'DD MMM, dddd'}}
+      <ng-container *ngIf="state">
+        <span [innerHTML]="state.value | dateSelectorDay"></span>
+        {{state.value | amLocale:'ru' | amFromUnix | amDateFormat: 'DD MMM, dddd'}}
+      </ng-container>
     </div>
   </div>
   <div>
@@ -14,7 +16,7 @@
         <td (click)="updateValue(day)" class="text-center" *ngFor="let day of week">
           <span class="circle-selector ml-auto mr-auto"
                 [ngClass]="{
-                  'selected': state && state.value === day?.value,
+                  'selected': state && state.dayString === day?.dayString,
                   'disabled': day?.disabled
                 }">{{day?.title}}</span>
         </td>

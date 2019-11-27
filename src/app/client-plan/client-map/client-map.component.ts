@@ -26,7 +26,7 @@ export class ClientMapComponent implements OnInit {
   image;
   imageLayer: Konva.Image;
   style = {
-    default: {
+    [RestaurantTableStatusEnum.DEFAULT]: {
       table: {
         strokeWidth: 1,
         stroke: '#333',
@@ -36,7 +36,7 @@ export class ClientMapComponent implements OnInit {
         fill: '#333'
       }
     },
-    selected: {
+    [RestaurantTableStatusEnum.ACTIVE]: {
       table: {
         strokeWidth: 1,
         stroke: '#333',
@@ -46,7 +46,7 @@ export class ClientMapComponent implements OnInit {
         fill: '#fff'
       }
     },
-    blocked: {
+    [RestaurantTableStatusEnum.BLOCKED]: {
       table: {
         strokeWidth: 1,
         stroke: '#333',
@@ -177,7 +177,7 @@ export class ClientMapComponent implements OnInit {
     );
 
     this.tablesLayer.on('click tap', (e) => {
-      this.preview.emit(this.tables.find(table => table.id.toString() === e.target.parent.id()));
+      this.preview.emit(this.tables.find(table => table.id === e.target.parent.id()));
       if (this.selectedTable) {
         this.setTableInactive(this.selectedTable.id);
       }
@@ -187,14 +187,14 @@ export class ClientMapComponent implements OnInit {
   }
 
   setTableActive(id: string) {
-    if (!this.tables.find(table => table.id.toString() === id && table.status !== RestaurantTableStatusEnum.BLOCKED)) {
+    if (!this.tables.find(table => table.id === id && table.status !== RestaurantTableStatusEnum.BLOCKED)) {
       return;
     }
     this._setTableStyle(id, RestaurantTableStatusEnum.ACTIVE);
   }
 
-  setTableInactive(id: number) {
-    this._setTableStyle(id.toString(), RestaurantTableStatusEnum.DEFAULT);
+  setTableInactive(id: string) {
+    this._setTableStyle(id, RestaurantTableStatusEnum.DEFAULT);
   }
 
   private _setTableStyle(id: string, type: RestaurantTableStatusEnum) {
@@ -263,7 +263,7 @@ export class ClientMapComponent implements OnInit {
       let _group = new Konva.Group({
         x: (table.position.x + (table.type === RestaurantTableTypeEnum.ROUND ? table.position.width / 2 : 0)) * this.mapScale + (this.stage.width() - this.image.width * this.mapScale) / 2,
         y: (table.position.y + (table.type === RestaurantTableTypeEnum.ROUND ? table.position.width / 2 : 0)) * this.mapScale + (this.stage.height() - this.image.height * this.mapScale) / 2,
-        id: table.id.toString()
+        id: table.id
       });
 
       if (table.position.rotate !== undefined) {
@@ -272,20 +272,20 @@ export class ClientMapComponent implements OnInit {
 
       if (table.type === RestaurantTableTypeEnum.SQUARE || table.type === RestaurantTableTypeEnum.POLYGON) {
         _table = new Konva.Rect({
-          ...this.style.default.table,
+          ...this.style[RestaurantTableStatusEnum.DEFAULT].table,
           width: table.position.width * this.mapScale,
           height: table.position.height * this.mapScale,
           ...style,
-          strokeWidth: this.style.default.table.strokeWidth * this.mapScale,
-          id: 'table-' + table.id.toString(),
+          strokeWidth: this.style[RestaurantTableStatusEnum.DEFAULT].table.strokeWidth * this.mapScale,
+          id: 'table-' + table.id,
           cornerRadius: 3 * this.mapScale
         });
       } else if (table.type === RestaurantTableTypeEnum.ROUND) {
         _table = new Konva.Circle({
-          ...this.style.default.table,
+          ...this.style[RestaurantTableStatusEnum.DEFAULT].table,
           ...style,
-          strokeWidth: this.style.default.table.strokeWidth * this.mapScale,
-          id: 'table-' + table.id.toString(),
+          strokeWidth: this.style[RestaurantTableStatusEnum.DEFAULT].table.strokeWidth * this.mapScale,
+          id: 'table-' + table.id,
           radius: table.position.width / 2 * this.mapScale
         });
       }
@@ -295,8 +295,8 @@ export class ClientMapComponent implements OnInit {
           text: table.number.toString(),
           fontSize: Math.min(16, 16 * 2 / table.number.toString().split('').filter(item => item !== '.').length) * this.mapScale,
           rotation: -table.position.rotate,
-          id: 'text-' + table.id.toString(),
-          ...this.style.default.text,
+          id: 'text-' + table.id,
+          ...this.style[RestaurantTableStatusEnum.DEFAULT].text,
           ...textStyle
         });
 

@@ -1,8 +1,8 @@
 import {Component, forwardRef, Input, OnDestroy, OnInit} from '@angular/core';
-import {NG_VALUE_ACCESSOR} from "@angular/forms";
-import {Subject} from "rxjs";
-import {untilDestroyed} from "ngx-take-until-destroy";
-import {IUiGroupSelectorItem} from "@app/ui/ui-group-selector/meta";
+import {NG_VALUE_ACCESSOR} from '@angular/forms';
+import {Subject} from 'rxjs';
+import {untilDestroyed} from 'ngx-take-until-destroy';
+import {IUiGroupSelectorItem} from '@app/ui/ui-group-selector/meta';
 
 @Component({
   // tslint:disable-next-line
@@ -19,6 +19,7 @@ import {IUiGroupSelectorItem} from "@app/ui/ui-group-selector/meta";
 })
 export class UiGroupSelectorComponent implements OnInit, OnDestroy {
   @Input() options: IUiGroupSelectorItem[];
+  @Input() size: 'small' | 'default' = 'default';
 
   touches$ = new Subject();
   changes$ = new Subject();

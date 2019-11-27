@@ -9,7 +9,7 @@ import {UiNotificationHostConfig, UiNotificationItem} from './meta';
 export class UiNotificationService {
   private _config = new BehaviorSubject<UiNotificationHostConfig>({
     position: 'center-center',
-    duration: 25000,
+    duration: 2000,
   });
 
   private _items = new BehaviorSubject<UiNotificationItem[]>([]);

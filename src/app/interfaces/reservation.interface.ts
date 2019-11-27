@@ -1,14 +1,19 @@
 export interface IReservation {
-  id: number;
-  name: string;
-  phone: string;
-  guestsCount: number;
-  date: string;
-  timeStart: number;
-  timeEnd: number;
+  id?: number;
+  client: {
+    name: string;
+    phone: string;
+    comment: string;
+  };
+  num_guests: number;
+  date_created?: string;
+  date_start: number;
+  date_end?: number;
   duration?: number;
-  tableId: number;
-  status: 'ACTIVE' | 'PENDING' | 'CANCELED';
+  table_id: number;
+  table_number?: string | number;
+  paid?: boolean;
+  status?: 'ACTIVE' | 'PENDING' | 'CANCELED';
 }
 
 export interface IReservationTime {

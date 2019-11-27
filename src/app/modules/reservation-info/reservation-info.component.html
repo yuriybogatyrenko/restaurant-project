@@ -1,36 +1,41 @@
-<app-restaurant-item [showPoster]="false" class="d-block mb-3"></app-restaurant-item>
+<ng-container *ngIf="reservation">
+  <app-restaurant-item [showPoster]="false" class="d-block mb-3"></app-restaurant-item>
 
-<table class="reservation-table">
-  <tr>
-    <td>Гости</td>
-    <td>2 гостя</td>
-  </tr>
-  <tr>
-    <td>Дата</td>
-    <td>Сегодня • 14 сен, среда</td>
-  </tr>
-  <tr>
-    <td>Время</td>
-    <td>18:00</td>
-  </tr>
-  <tr>
-    <td>Столик</td>
-    <td>9</td>
-  </tr>
-  <tr class="client-data">
-    <td>Имя</td>
-    <td>Константин</td>
-  </tr>
-  <tr>
-    <td>Телефон</td>
-    <td>+7 (245) 653-23-43</td>
-  </tr>
-  <tr *ngIf="!isTotal">
-    <td class="pt-4">К оплате</td>
-    <td class="pt-4">
+  <table class="reservation-table">
+    <tr>
+      <td>Гости</td>
+      <td>{{reservation.num_guests | wordsEndings:['гостя', 'гостя', 'гостей']}}</td>
+    </tr>
+    <tr>
+      <td>Дата</td>
+      <td>
+        <span [innerHTML]="reservation.date_start | dateSelectorDay"></span>
+        {{reservation.date_start | amFromUnix | amDateFormat: 'DD MMM, dddd'}}
+      </td>
+    </tr>
+    <tr>
+      <td>Время</td>
+      <td>{{reservation.date_start | amFromUnix | amDateFormat: 'HH:mm'}}</td>
+    </tr>
+    <tr>
+      <td>Столик</td>
+      <td>{{reservation.table_number}}</td>
+    </tr>
+    <tr class="client-data">
+      <td>Имя</td>
+      <td>{{reservation.client.name}}</td>
+    </tr>
+    <tr>
+      <td>Телефон</td>
+      <td>{{reservation.client.phone}}</td>
+    </tr>
+    <tr *ngIf="!isTotal">
+      <td class="pt-4">К оплате</td>
+      <td class="pt-4">
       <span class="fw-fz-34 fw-color-black fw-text-500">
-        250 ₽
+        {{amount}} ₽
       </span>
-    </td>
-  </tr>
-</table>
+      </td>
+    </tr>
+  </table>
+</ng-container>

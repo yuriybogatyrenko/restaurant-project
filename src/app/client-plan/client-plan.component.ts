@@ -1,6 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
-import {tables} from '../mokcs/tables';
 import {IRestaurantTable, RestaurantTableStatusEnum} from '@interfaces/restaurant-table.interface';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {UiNotificationService} from '@app/ui/ui-notification/ui-notification.service';

@@ -1,12 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {expand, filter, map, take, tap} from 'rxjs/operators';
-import {BehaviorSubject, EMPTY, empty, of} from 'rxjs';
+import {map, tap} from 'rxjs/operators';
+import {BehaviorSubject} from 'rxjs';
 import {IRestaurantTable, IRestaurantTableTimeline} from '@interfaces/restaurant-table.interface';
-import {untilDestroyed} from 'ngx-take-until-destroy';
-import {Moment} from 'moment';
-import {MomentHelperService} from '@app/_services/moment-helper/moment-helper.service';
-import * as moment from 'moment';
+import {UiNotificationService} from '@app/ui/ui-notification/ui-notification.service';
 
 @Injectable({providedIn: 'root'})
 export class ReservationService {
@@ -14,7 +11,7 @@ export class ReservationService {
   reservationTime$: BehaviorSubject<IRestaurantTableTimeline>;
 
   constructor(private http: HttpClient,
-              private _momentHelper: MomentHelperService) {
+              private notificationS: UiNotificationService) {
   }
 
   getReservationDays(month: string) {
@@ -48,5 +45,30 @@ export class ReservationService {
           this.tables$.next(tables);
         })
       );
+  }
+
+  makeReservation(data) {
+    return this.http.post('', {
+      method: 'bookingAdd',
+      ...data
+    }).pipe(
+      tap(() => this.notificationS.open({title: 'Столик забронирован'}))
+    );
+  }
+
+  editReservation(data) {
+    return this.http.post('', {
+      method: 'bookingEdit',
+      ...data
+    }).pipe(
+      tap(() => this.notificationS.open({title: 'Бронь отредактирована'}))
+    );
+  }
+
+  getReservationDetails(id: number) {
+    return this.http.post('', {
+      method: 'bookingGetDetails',
+      id
+    });
   }
 }

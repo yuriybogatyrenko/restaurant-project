@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-reservation-deposit',
@@ -6,8 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reservation-deposit.component.sass']
 })
 export class ReservationDepositComponent implements OnInit {
+  @Input() amount = 250;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

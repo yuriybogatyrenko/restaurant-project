@@ -10,7 +10,7 @@ const routes: Routes = [
   {path: '', component: PageClientReservationComponent},
   {path: 'contacts', component: PageClientContactsComponent},
   {path: 'confirm', component: PageClientConfirmComponent},
-  {path: 'total', component: PageClientTotalComponent}
+  {path: 'total/:id', component: PageClientTotalComponent}
 ];
 
 @NgModule({

@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {IUiGroupSelectorItem} from "@app/ui/ui-group-selector/meta";
-import {Router} from "@angular/router";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {IUiGroupSelectorItem} from '@app/ui/ui-group-selector/meta';
+import {Router} from '@angular/router';
+import {SessionStorageService} from 'ngx-webstorage';
 
 @Component({
   selector: 'app-page-client-contacts',
@@ -14,30 +15,33 @@ export class PageClientContactsComponent implements OnInit {
     {
       title: 'Отправить SMS',
       value: 'SMS'
-    }/*,
-    {
-      title: 'Связаться с диспетчером',
-      value: 'CALL'
-    }*/
+    }
   ];
 
   constructor(private _fb: FormBuilder,
-              private _router: Router) {
+              private _router: Router,
+              private _sessionStorage: SessionStorageService) {
   }
 
   ngOnInit() {
+    const sessionForm = this._sessionStorage.retrieve('client:reservation:form');
     this.form = this._fb.group({
-      name: [null, Validators.required],
-      phone: [null, Validators.required],
+      name: [sessionForm ? sessionForm.name : null, Validators.required],
+      phone: [sessionForm ? sessionForm.phone : null, Validators.required],
       confirmType: [this.confirmOptions[0]]
     });
-
-    this.form.valueChanges.subscribe(console.log)
   }
 
   submit(e: Event) {
     e.preventDefault();
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      return;
+    }
+
+    this._sessionStorage.store('client:reservation:form', {
+      ...this._sessionStorage.retrieve('client:reservation:form'),
+      ...this.form.value
+    });
 
     this._router.navigateByUrl('/confirm');
   }
