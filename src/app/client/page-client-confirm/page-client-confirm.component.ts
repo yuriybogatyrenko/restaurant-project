@@ -36,14 +36,6 @@ export class PageClientConfirmComponent implements OnInit, OnDestroy {
     } else {
       this.router.navigateByUrl('/');
     }
-    /*this.reservation = {
-      client: {
-        name: this.sessionStore.retrieve('client:reservation:form')
-      }
-    }
-    this.reservationS.getReservationDetails(this.activatedRoute.snapshot.params.id)
-      .pipe(untilDestroyed(this))
-      .subscribe((res: any) => this.reservation = res.result);*/
   }
 
   makeReservation() {
