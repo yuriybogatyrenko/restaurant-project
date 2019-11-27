@@ -187,7 +187,7 @@ export class ClientMapComponent implements OnInit {
   }
 
   setTableActive(id: string) {
-    if (!this.tables.find(table => table.id === id && table.status !== RestaurantTableStatusEnum.BLOCKED)) {
+    if (!this.tables.find(table => table.id === id && table.status !== RestaurantTableStatusEnum.BLOCKED && table._numGuestsEnabled)) {
       return;
     }
     this._setTableStyle(id, RestaurantTableStatusEnum.ACTIVE);
@@ -249,7 +249,7 @@ export class ClientMapComponent implements OnInit {
     this.tables.forEach((table: IRestaurantTable) => {
       let style = {};
       let textStyle = {};
-      if (table.status === RestaurantTableStatusEnum.BLOCKED) {
+      if (table.status === RestaurantTableStatusEnum.BLOCKED || !table._numGuestsEnabled) {
         style = {...this.style.blocked.table};
         textStyle = {...this.style.blocked.text};
       } else if (this.selectedTable && this.selectedTable.id === table.id) {
@@ -290,7 +290,7 @@ export class ClientMapComponent implements OnInit {
         });
       }
 
-      if (table.status !== RestaurantTableStatusEnum.BLOCKED) {
+      if (table.status !== RestaurantTableStatusEnum.BLOCKED && table._numGuestsEnabled) {
         _info = new Konva.Text({
           text: table.number.toString(),
           fontSize: Math.min(16, 16 * 2 / table.number.toString().split('').filter(item => item !== '.').length) * this.mapScale,

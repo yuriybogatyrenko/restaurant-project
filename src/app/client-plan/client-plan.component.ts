@@ -26,8 +26,8 @@ export class ClientPlanComponent implements OnInit {
   }
 
   onPreview(table: IRestaurantTable) {
-    if (table.status === RestaurantTableStatusEnum.BLOCKED) {
-      this._notificationS.open({title: 'Столик занят'});
+    if (table.status === RestaurantTableStatusEnum.BLOCKED || !table._numGuestsEnabled) {
+      this._notificationS.open({title: !table._numGuestsEnabled ? 'Столик не может вместить столько человек' : 'Столик занят'});
       return;
     }
     this.selectedTable = table;

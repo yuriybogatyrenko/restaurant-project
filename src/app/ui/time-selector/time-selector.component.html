@@ -5,7 +5,7 @@
   </div>
   <div class="row text-center">
     <div class="col-3 d-flex align-items-center justify-content-center" (click)="updateValue(item)" *ngFor="let item of options">
-      <span class="circle-selector" [ngClass]="{'selected': state === item, disabled: item.disabled}">{{item[titleField]}}</span>
+      <span class="circle-selector" [ngClass]="{'selected': state?.value === item.value, disabled: item.disabled}">{{item[titleField]}}</span>
     </div>
   </div>
 </div>

@@ -27,13 +27,13 @@ export class TimelineItemComponent implements OnInit {
     this._renderer.setStyle(
       this._elRef.nativeElement,
       'left',
-      `${(this.gridSettings.minuteFactor * (Math.round(moment.duration(moment.unix(this.timeline.date_start).diff(moment.unix(this.hoursGrid[0].value))).asMinutes())) + this.linebreakOffset) / (this.gridSettings.gridSteps * Math.max(this.gridSettings.gridWidth, this.gridSettings.defaultGridWidth)) * 100}%`
+      `${(this.gridSettings.minuteFactor * (Math.round(moment.duration(moment(this.timeline.date_start).diff(moment(this.hoursGrid[0].value))).asMinutes())) + this.linebreakOffset) / (this.gridSettings.gridSteps * Math.max(this.gridSettings.gridWidth, this.gridSettings.defaultGridWidth)) * 100}%`
     );
 
     this._renderer.setStyle(
       this._elRef.nativeElement,
       'width',
-      `${(Math.abs(moment.duration(moment.unix(this.timeline.date_end).diff(moment.unix(this.timeline.date_start))).asMinutes()) * this.gridSettings.minuteFactor - this.linebreakOffset * 2) / (this.gridSettings.gridSteps * Math.max(this.gridSettings.gridWidth, this.gridSettings.defaultGridWidth)) * 100}%`
+      `${(Math.abs(moment.duration(moment(this.timeline.date_end).diff(moment(this.timeline.date_start))).asMinutes()) * this.gridSettings.minuteFactor - this.linebreakOffset * 2) / (this.gridSettings.gridSteps * Math.max(this.gridSettings.gridWidth, this.gridSettings.defaultGridWidth)) * 100}%`
     );
   }
 

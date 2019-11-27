@@ -39,7 +39,7 @@ export class PageClientReservationComponent implements OnInit, AfterViewInit, On
     this.form = this.fb.group({
       table: [{value: sessionForm ? sessionForm.table : null, disabled: true}, [Validators.required]],
       guests: [sessionForm ? sessionForm.guests : DEFAULT_GUESTS_NUMBER, [Validators.required]],
-      date: [{value: sessionForm ? sessionForm.date : moment.now()}, Validators.required],
+      date: [{value: sessionForm ? sessionForm.date : moment().toISOString()}, Validators.required],
       time: [sessionForm ? sessionForm.time : null, [Validators.required]],
       wishes: [sessionForm ? sessionForm.wishes : null]
     });
@@ -78,9 +78,9 @@ export class PageClientReservationComponent implements OnInit, AfterViewInit, On
   }
 
   getTables() {
-    let timecode = moment(this.form.value.date.value * 1000).format('YYYY-MM-DD');
+    let timecode = moment(this.form.value.date.value).format('YYYY-MM-DD');
     if (this.form.value.time) {
-      timecode += 'T' + this.form.value.time.title + ':00';
+      timecode = moment(this.form.value.time.value).format('YYYY-MM-DDTHH:mm:ss');
     }
     this.reservationS.getReservationTables({timecode, num_guests: this.form.value.guests})
       .pipe(untilDestroyed(this))

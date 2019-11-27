@@ -18,8 +18,10 @@ export interface IRestaurantTable {
     height: number,
     rotate: number
   };
+  deposit: number;
   status: RestaurantTableStatusEnum;
   booking_entries?: IRestaurantTableTimeline[];
+  _numGuestsEnabled: boolean;
 }
 
 export interface IRestaurantTableTimeline {

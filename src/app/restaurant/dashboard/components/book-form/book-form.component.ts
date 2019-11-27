@@ -30,12 +30,12 @@ export class BookFormComponent implements OnInit, OnDestroy {
 
   reservationDuration = reservationDuration;
 
-  tables$: Observable<IRestaurantTable[]> = this._reservationS.tables$
+  tables$: Observable<IRestaurantTable[]> = this.reservationS.tables$
     .pipe(map((items: IRestaurantTable[]) => items.filter(item => item.status !== RestaurantTableStatusEnum.BLOCKED)));
 
   constructor(private fb: FormBuilder,
-              private _reservationS: ReservationService,
-              private _momentHelper: MomentHelperService) {
+              private reservationS: ReservationService,
+              private momentHelper: MomentHelperService) {
   }
 
   ngOnInit() {
@@ -50,30 +50,20 @@ export class BookFormComponent implements OnInit, OnDestroy {
     this.getDays();
   }
 
+  getReservationTime(data) {
+    this.reservationS
+      .getReservationTime(data.dayString)
+      .pipe(take(1), untilDestroyed(this))
+      .subscribe((time: any) => {
+        this.timeOptions = time.items;
+        this.getTables();
+      });
+  }
+
   formSubscriptions() {
     this.form.controls.date.valueChanges
       .pipe(untilDestroyed(this))
-      .subscribe(data =>
-        this._reservationS
-          .getReservationTime(data.dayString)
-          .pipe(take(1))
-          .subscribe((time: any) => {
-            this.timeOptions = time.items;
-            this.getTables();
-          })
-      );
-
-    this.form.controls.deposit.valueChanges
-      .pipe(untilDestroyed(this))
-      .subscribe(data => {
-        if (data.value === 'deposit') {
-          this.form.controls.depositAmount.setValidators([Validators.required, Validators.pattern(/[0-9]+/)]);
-        } else {
-          this.form.controls.depositAmount.setValidators([Validators.pattern(/[0-9]+/)]);
-        }
-
-        this.form.controls.depositAmount.updateValueAndValidity();
-      });
+      .subscribe(this.getReservationTime.bind(this));
 
     this.form.controls
       .time
@@ -102,47 +92,44 @@ export class BookFormComponent implements OnInit, OnDestroy {
       duration: [2],
       name: [null, [Validators.required]],
       phone: [null, [Validators.required]],
-      wishes: [],
-      deposit: [{value: 'deposit'}],
-      depositAmount: [null, [Validators.required, Validators.pattern(/[0-9]+/)]]
+      wishes: []
     });
   }
 
   initEditForm() {
-    console.log(this.reservation);
     this.form = this.fb.group({
-      date: [{value: this.reservation.date_start}, [Validators.required]],
+      date: [{value: this.reservation.duration.date_start}, [Validators.required]],
       guests: [this.reservation.num_guests, [Validators.required, Validators.pattern(/[0-9]+/)]],
-      time: [this.reservation.date_start, [Validators.required]],
-      table: [null, [Validators.required]],
-      duration: [2],
+      time: [{value: this.reservation.duration.date_start}, [Validators.required]],
+      table: [{deposit: this.reservation.deposit, ...this.reservation.table}, [Validators.required]],
+      duration: [moment.duration(this.reservation.duration.value).asHours()],
       name: [this.reservation.client.name, [Validators.required]],
       phone: [this.reservation.client.phone, [Validators.required]],
-      wishes: [this.reservation.client.comment],
-      deposit: [{value: 'deposit'}],
-      depositAmount: [null, [Validators.required, Validators.pattern(/[0-9]+/)]]
+      wishes: [this.reservation.client.comment]
     });
+
+    this.getReservationTime({dayString: moment(this.reservation.duration.date_start).format('YYYY-MM-DD')});
   }
 
   getTables() {
-    let timecode = moment(this.form.value.date.value * 1000).format('YYYY-MM-DD');
+    let timecode = moment(this.form.value.date.value).format('YYYY-MM-DD');
     if (this.form.value.time) {
-      timecode += 'T' + this.form.value.time.title + ':00';
+      timecode = this.form.value.time.value;
     }
-    this._reservationS.getReservationTables({timecode, num_guests: this.form.value.guests})
+    this.reservationS.getReservationTables({timecode, num_guests: this.form.value.guests})
       .pipe(untilDestroyed(this))
       .subscribe();
   }
 
   getDays() {
-    this._reservationS.getReservationDays(this.queryDaysMonth.format('YYYY-MM'))
+    this.reservationS.getReservationDays(this.queryDaysMonth.format('YYYY-MM'))
       .pipe(
         take(1),
         untilDestroyed(this)
       )
       .subscribe(
         (days: any) => {
-          this.days = this._momentHelper.cutFromToday([...this.days, ...days.items] as any, this.daysLength);
+          this.days = this.momentHelper.cutFromToday([...this.days, ...days.items] as any, this.daysLength);
           if (this.type === 'CREATE') {
             this.form.patchValue({date: this.days[0]});
           }
@@ -164,7 +151,7 @@ export class BookFormComponent implements OnInit, OnDestroy {
     const formData = this.form.value;
     const data: any = {
       table_id: formData.table.id,
-      timecode: moment.unix(formData.time.value).format('YYYY-MM-DDT') + formData.time.title + ':00',
+      timecode: formData.time.value,
       num_guests: formData.guests,
       client: {
         name: formData.name,
@@ -175,9 +162,11 @@ export class BookFormComponent implements OnInit, OnDestroy {
 
     if (this.type === 'EDIT') {
       data.id = this.reservation.id;
+      data.date_start = formData.time.value;
+      data.date_end = moment(formData.time.value).add(formData.duration, 'hours');
     }
 
-    this._reservationS[this.type === 'CREATE' ? 'makeReservation' : 'editReservation'](data)
+    this.reservationS[this.type === 'CREATE' ? 'makeReservation' : 'editReservation'](data)
       .pipe(untilDestroyed(this))
       .subscribe(() => {
         this.success.emit();

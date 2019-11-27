@@ -4,6 +4,7 @@ import {map, tap} from 'rxjs/operators';
 import {BehaviorSubject} from 'rxjs';
 import {IRestaurantTable, IRestaurantTableTimeline} from '@interfaces/restaurant-table.interface';
 import {UiNotificationService} from '@app/ui/ui-notification/ui-notification.service';
+import * as moment from 'moment';
 
 @Injectable({providedIn: 'root'})
 export class ReservationService {
@@ -24,7 +25,7 @@ export class ReservationService {
   getReservationTime(date: string) {
     return this.http.post('', {
       method: 'getWorkTime',
-      date,
+      date: moment(date).format('YYYY-MM-DD'),
     });
   }
 
@@ -38,7 +39,7 @@ export class ReservationService {
         map((items: any) => items.items.map(item => {
           return {
             ...item,
-            _numGuestsDisabled: item.num_persons >= data.num_guests
+            _numGuestsEnabled: item.num_persons >= data.num_guests
           };
         })),
         tap((tables: any) => {

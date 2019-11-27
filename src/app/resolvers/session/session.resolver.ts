@@ -15,7 +15,7 @@ export class SessionResolver implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<LoginResponse> {
     const session: LoginResponse = this.localStorage.retrieve('session');
 
-    if (moment(session.expirationTime).isSameOrBefore(moment.now())) {
+    if (!session || !session.expirationTime || moment(session.expirationTime).isSameOrBefore(moment.now())) {
       return this.sessionS.login();
     }
 

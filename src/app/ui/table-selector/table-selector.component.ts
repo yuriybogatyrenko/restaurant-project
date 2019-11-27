@@ -1,4 +1,4 @@
-import {Component, forwardRef, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, forwardRef, Input, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material';
 import {ClientPlanComponent} from '@app/client-plan/client-plan.component';
 import {take} from 'rxjs/operators';
@@ -21,13 +21,15 @@ import {untilDestroyed} from 'ngx-take-until-destroy';
   ]
 
 })
-export class TableSelectorComponent implements OnInit, OnDestroy {
+export class TableSelectorComponent implements OnInit, OnDestroy, OnChanges {
   changes$ = new Subject();
   touches$ = new Subject();
   @Input() disabled: boolean;
   @Input() isAdmin = false;
+  @Input() readonly = false;
 
   @Input() tables: IRestaurantTable[] = [];
+  availableTables = 0;
 
   anyTableSelected = false;
   state: IRestaurantTable;
@@ -84,12 +86,23 @@ export class TableSelectorComponent implements OnInit, OnDestroy {
 
   writeValue(rawValue: any) {
     this.state = rawValue;
+    if (this.state && !this.state.deposit) {
+      const currentTable = this.tables.find(item => item.id === rawValue.id);
+      this.changes$.next(currentTable);
+      return;
+    }
     this.changes$.next(rawValue);
   }
 
   deleteSelectedTable(e: Event) {
     e.preventDefault();
     this.updateValue(null);
+  }
+
+  ngOnChanges(data) {
+    if (data && data.tables) {
+      this.availableTables = data.tables.currentValue.filter((item: IRestaurantTable) => item._numGuestsEnabled).length;
+    }
   }
 
   ngOnDestroy() {

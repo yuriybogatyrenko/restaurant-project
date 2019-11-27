@@ -41,7 +41,7 @@ export class PageClientConfirmComponent implements OnInit, OnDestroy {
   makeReservation() {
     this.reservationS.makeReservation({
       table_id: this.reservation.table_id,
-      timecode: moment.unix(this.reservation.date_start).format('YYYY-MM-DDTHH:mm:ss'),
+      timecode: moment(this.reservation.date_start).format('YYYY-MM-DDTHH:mm:ss'),
       num_guests: this.reservation.num_guests,
       client: {
         ...this.reservation.client

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API_URL: 'http://176.112.219.104:65480/api'
+  API_URL: 'https://api.domoed.su:65480/api'
 };
 
 /*

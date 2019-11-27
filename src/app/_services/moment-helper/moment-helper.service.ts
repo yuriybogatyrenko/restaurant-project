@@ -11,7 +11,7 @@ export class MomentHelperService {
       return [];
     }
 
-    const startDate = moment(dateArray[0].value * 1000);
+    const startDate = moment.utc(dateArray[0].value);
 
     const weeks = [];
 
@@ -25,7 +25,7 @@ export class MomentHelperService {
     }
 
     for (let i = 0; i < dateArray.length; i++) {
-      if (moment(dateArray[i].value * 1000).weekday() !== 0) {
+      if (moment.utc(dateArray[i].value).weekday() !== 0) {
         perWeek.push(dateArray[i]);
       } else {
         weeks.push(perWeek);
@@ -43,7 +43,7 @@ export class MomentHelperService {
 
   cutFromToday(array: [{ title: string, value: number, disabled: boolean }], length: number = 14) {
     array.find((item, index) => {
-      if (moment.utc(item.value * 1000).isSame(moment.utc(), 'day')) {
+      if (moment.utc(item.value).isSame(moment.utc(), 'day')) {
         array.splice(0, index - 1);
         array.splice(length);
         return true;
