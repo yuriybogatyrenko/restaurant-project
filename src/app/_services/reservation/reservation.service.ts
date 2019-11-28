@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map, tap} from 'rxjs/operators';
 import {BehaviorSubject} from 'rxjs';
-import {IRestaurantTable, IRestaurantTableTimeline} from '@interfaces/restaurant-table.interface';
+import {IRestaurantTable, IRestaurantTableTimeline, RestaurantTableStatusEnum} from '@interfaces/restaurant-table.interface';
 import {UiNotificationService} from '@app/ui/ui-notification/ui-notification.service';
 import * as moment from 'moment';
 
@@ -37,9 +37,12 @@ export class ReservationService {
     })
       .pipe(
         map((items: any) => items.items.map(item => {
+          const status = item.status.split(',');
           return {
             ...item,
-            _numGuestsEnabled: item.num_persons >= data.num_guests
+            isActive: status[1] === 'available' && status[0] === 'active',
+            status: status[1] === 'available' && status[0] === 'active' ? RestaurantTableStatusEnum.DEFAULT : RestaurantTableStatusEnum.BLOCKED,
+            _numGuestsEnabled: item.num_persons >= data.num_guests,
           };
         })),
         tap((tables: any) => {

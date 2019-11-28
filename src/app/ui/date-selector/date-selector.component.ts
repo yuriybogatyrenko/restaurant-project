@@ -48,7 +48,6 @@ export class DateSelectorComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   writeValue(rawValue: any) {
-    console.log('state', this.state, rawValue);
     if (this.state === rawValue) {
       return;
     }
@@ -56,7 +55,6 @@ export class DateSelectorComponent implements OnInit, OnDestroy, OnChanges {
       ...rawValue,
       dayString: moment(rawValue.value).format('YYYY-MM-DD')
     };
-    console.log(this.state, rawValue);
     this.changes$.next(this.state);
   }
 

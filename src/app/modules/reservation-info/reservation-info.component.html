@@ -10,12 +10,12 @@
       <td>Дата</td>
       <td>
         <span [innerHTML]="reservation.date_start | dateSelectorDay"></span>
-        {{reservation.date_start | amFromUnix | amDateFormat: 'DD MMM, dddd'}}
+        {{reservation.date_start | amDateFormat: 'DD MMM, dddd'}}
       </td>
     </tr>
     <tr>
       <td>Время</td>
-      <td>{{reservation.date_start | amFromUnix | amDateFormat: 'HH:mm'}}</td>
+      <td>{{reservation.date_start | amDateFormat: 'HH:mm'}}</td>
     </tr>
     <tr>
       <td>Столик</td>

@@ -8,11 +8,11 @@ export class DateSelectorDayPipe implements PipeTransform {
   constructor() {
   }
 
-  transform(value: number): string {
-    return moment().isSame(moment.unix(value), 'day')
+  transform(value: string): string {
+    return moment().isSame(moment(value), 'day')
       ? `Сегодня &bull; `
       : moment().add(1, 'days')
-        .isSame(moment.unix(value), 'day')
+        .isSame(moment(value), 'day')
         ? `Завтра &bull; `
         : '';
   }

@@ -34,7 +34,6 @@ export class TimeSelectorComponent implements OnInit, OnDestroy {
 
   writeValue(rawValue: any) {
     this.state = rawValue;
-    console.log(this.state);
     this.changes$.next(rawValue);
   }
 

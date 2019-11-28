@@ -30,8 +30,7 @@ export class BookFormComponent implements OnInit, OnDestroy {
 
   reservationDuration = reservationDuration;
 
-  tables$: Observable<IRestaurantTable[]> = this.reservationS.tables$
-    .pipe(map((items: IRestaurantTable[]) => items.filter(item => item.status !== RestaurantTableStatusEnum.BLOCKED)));
+  tables$: Observable<IRestaurantTable[]> = this.reservationS.tables$;
 
   constructor(private fb: FormBuilder,
               private reservationS: ReservationService,

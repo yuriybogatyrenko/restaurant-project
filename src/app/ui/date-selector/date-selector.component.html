@@ -6,7 +6,7 @@
     <div class="fw-color-gray fw-fz-15">
       <ng-container *ngIf="state">
         <span [innerHTML]="state.value | dateSelectorDay"></span>
-        {{state.value | amLocale:'ru' | amFromUnix | amDateFormat: 'DD MMM, dddd'}}
+        {{state.value | amLocale:'ru' | amDateFormat: 'DD MMM, dddd'}}
       </ng-container>
     </div>
   </div>

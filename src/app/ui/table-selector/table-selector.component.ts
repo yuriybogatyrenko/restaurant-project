@@ -2,7 +2,7 @@ import {Component, forwardRef, Input, OnChanges, OnDestroy, OnInit} from '@angul
 import {MatDialog} from '@angular/material';
 import {ClientPlanComponent} from '@app/client-plan/client-plan.component';
 import {take} from 'rxjs/operators';
-import {IRestaurantTable} from '@interfaces/restaurant-table.interface';
+import {IRestaurantTable, RestaurantTableStatusEnum} from '@interfaces/restaurant-table.interface';
 import {Subject} from 'rxjs';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 import {untilDestroyed} from 'ngx-take-until-destroy';
@@ -34,14 +34,14 @@ export class TableSelectorComponent implements OnInit, OnDestroy, OnChanges {
   anyTableSelected = false;
   state: IRestaurantTable;
 
-  constructor(private _matDialog: MatDialog) {
+  constructor(private matDialog: MatDialog) {
   }
 
   ngOnInit() {
   }
 
   selectTable(e: MouseEvent) {
-    this._matDialog.open(ClientPlanComponent, {
+    this.matDialog.open(ClientPlanComponent, {
       width: '100vw',
       maxWidth: '100vw',
       height: '100vh',
@@ -101,7 +101,7 @@ export class TableSelectorComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges(data) {
     if (data && data.tables) {
-      this.availableTables = data.tables.currentValue.filter((item: IRestaurantTable) => item._numGuestsEnabled).length;
+      this.availableTables = data.tables.currentValue.filter((item: IRestaurantTable) => item._numGuestsEnabled && item.isActive && item.status !== RestaurantTableStatusEnum.BLOCKED).length;
     }
   }
 

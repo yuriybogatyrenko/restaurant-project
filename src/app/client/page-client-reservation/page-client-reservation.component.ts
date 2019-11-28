@@ -80,7 +80,7 @@ export class PageClientReservationComponent implements OnInit, AfterViewInit, On
   getTables() {
     let timecode = moment(this.form.value.date.value).format('YYYY-MM-DD');
     if (this.form.value.time) {
-      timecode = moment(this.form.value.time.value).format('YYYY-MM-DDTHH:mm:ss');
+      timecode = this.form.value.time.value;
     }
     this.reservationS.getReservationTables({timecode, num_guests: this.form.value.guests})
       .pipe(untilDestroyed(this))

@@ -8,11 +8,15 @@
   <div class="row" *ngIf="!state">
     <div class="col" *ngIf="isAdmin">
       <mat-select placeholder="Номер стола" (selectionChange)="updateValue($event, true)">
-        <mat-option *ngFor="let table of tables" [value]="table.id">{{table.number}}</mat-option>
+        <mat-option *ngFor="let table of tables"
+                    [disabled]="!table.isActive || !table._numGuestsEnabled"
+                    [value]="table.id">{{table.number}}</mat-option>
       </mat-select>
     </div>
     <div class="col">
-      <button [disabled]="disabled" (click)="selectTable($event)" type="button" class="table-select__button">Указать на карте</button>
+      <button [disabled]="disabled" (click)="selectTable($event)" type="button" class="table-select__button">
+        Указать на карте
+      </button>
     </div>
     <!--<div class="col-6 pl-1">
       <div>

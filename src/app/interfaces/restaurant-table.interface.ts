@@ -4,6 +4,7 @@ export interface IRestaurantTable {
   title: string;
   number: number;
   num_persons?: number;
+  isActive: boolean;
   gallery: IRestaurantTableGalleryItem[];
   type: RestaurantTableTypeEnum;
   furniture?: {
