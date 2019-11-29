@@ -31,7 +31,8 @@ export class PageClientConfirmComponent implements OnInit, OnDestroy {
         },
         table_id: reservationSession.table.id,
         table_number: reservationSession.table.number,
-        date_start: reservationSession.time.value
+        date_start: reservationSession.time.value,
+        deposit: reservationSession.table.deposit
       };
     } else {
       this.router.navigateByUrl('/');
