@@ -1,3 +1,11 @@
+##Модуль админки ресторана по работе с картами
+
+Данный модуль содержится в /src/app/restaurant/restaurant-plan
+
+В данном модуле реализована работа с внешними картами, изменение размеров столов и тп, 
+но сбора данных для отправки на сервер еще не было, по этому это еще только предстоит реализовать
+
+
 # RestourantProject
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
